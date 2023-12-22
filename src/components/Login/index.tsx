@@ -1,11 +1,13 @@
 import { LoginForm } from "components/Login/LoginForm/LoginForm";
+import { Container } from "components/UI/Container";
 import "./Login.scss";
-import { ShowEmail } from "components/Login/LoginForm/ShowEmail";
+
 export const Login = () => {
     return (
         <div>
-            <LoginForm />
-            <ShowEmail />
+            <Container>
+                <LoginForm />
+            </Container>
         </div>
     )
 }

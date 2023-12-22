@@ -1,61 +1,54 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import 'scss/App.scss';
 import { Header } from 'components/Header/index';
 import { Main } from 'components/Main/main';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, } from 'react-router-dom';
 import { Catalog } from 'components/Catalog';
 import { NotFoundPage } from 'components/NotFoundPage';
 import { Login } from 'components/Login';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectAuth, selectIsLoading, setAuth, setLodaing, setUser } from 'features/user/userSlice';
+import { useAppDispatch } from 'app/hooks';
+import { setAuth, setUser } from 'features/user/userSlice';
 import AuthService from 'api/services/AuthService';
 import { Registration } from 'components/Registration/Registration';
+import { PrivateLayout } from 'layouts/PrivateLayout';
+import { Profile } from 'pages/Profile';
+import { AuthLayout } from 'layouts/AuthLayout';
+import { PageLoader } from 'components/Loader';
 
 function App() {
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector(selectAuth)
-  const isLoading = useAppSelector(selectIsLoading)
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      const checkAuth = async() => {
-        setLodaing(true)
+      setIsLoading(true)
+
+      const checkAuth = async () => {
         try {
-            const response = await AuthService.auth()
-            localStorage.setItem('token', response.data.accessToken)
-            dispatch(setAuth(true))
-            dispatch(setUser(response.data.user))
-            toast("Success checkAuth", {
-                type: "success"
-            });
+          const response = await AuthService.auth()
+          console.log(response)
+          localStorage.setItem('token', response.data.accessToken)
+          dispatch(setAuth(true))
+          dispatch(setUser(response.data.user))
+          toast("Authorized", {
+            type: "success"
+          });
         } catch (e: any) {
-            console.log(e.response?.data?.message)
-            toast(e.response?.data?.message, {
-                type: "error"
-            });
+          console.log(e.response?.data?.message)
         } finally {
-          setLodaing(false)
+          setIsLoading(false)
         }
-    }
+      }
+
       checkAuth()
     }
   }, [])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <PageLoader />
   }
-
-  // if (!isAuth) {
-  //   return (
-  //     <>
-  //       <Header />
-  //       <Login />
-  //       <ToastContainer />
-  //     </>
-  //   )
-  // }
-  
 
   return (
     <div className="App">
@@ -63,11 +56,18 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/catalog" element={<Catalog />} />
+
+        <Route element={<AuthLayout />}>
+          <Route path='/login' element={<Login />} />
+          <Route path='/registration' element={<Registration />} />
+        </Route>
+
+        <Route element={<PrivateLayout />}>
+          <Route path="/cabinet" element={<Profile />} />
+        </Route>
+
         <Route path="*" element={<NotFoundPage />} />
-        <Route path='/login' element={<Login />} />    
-        <Route path='/registration' element={<Registration />} />     
       </Routes>
-      <ToastContainer />
     </div>
   );
 }

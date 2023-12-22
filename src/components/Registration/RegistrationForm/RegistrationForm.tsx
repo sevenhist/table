@@ -6,12 +6,15 @@ import { useState } from "react"
 import { toast } from "react-toastify";
 import { AuthResponse } from "models/response/AuthResponse";
 import { API_URL } from "api/http";
+import { Link, useNavigate } from "react-router-dom";
+
+import './RegistrationForm.scss';
 
 export const RegistrationForm = () => {
     const dispatch = useAppDispatch();
     const [email, setInputEmail] = useState<string>('')
     const [password, setInputPassowrd] = useState<string>('')
-    
+    const navigate = useNavigate()
 
     const handleLogin = async () => {
         try {
@@ -36,6 +39,7 @@ export const RegistrationForm = () => {
             localStorage.setItem('token', response.data.accessToken)
             dispatch(setAuth(true))
             dispatch(setUser(response.data.user))
+            navigate('/cabinet')
             toast("Success Registration", {
                 type: "success"
             });
@@ -46,6 +50,7 @@ export const RegistrationForm = () => {
             });
         }
     }
+    
     const handleLogout = async () => {
         try {
             const response = await AuthService.logout()
@@ -62,23 +67,7 @@ export const RegistrationForm = () => {
             });
         }
     }
-    const checkAuth = async() => {
-        try {
-            const response = await AuthService.auth()
-            localStorage.setItem('token', response.data.accessToken)
-            dispatch(setAuth(true))
-            dispatch(setUser(response.data.user))
-            toast("Success checkAuth", {
-                type: "success"
-            });
-        } catch (e: any) {
-            console.log(e.response?.data?.message)
-            toast(e.response?.data?.message, {
-                type: "error"
-            });
-        }
-    }
-    
+
     return (
         <div>
             <div className="email_part">
@@ -97,8 +86,11 @@ export const RegistrationForm = () => {
                     placeholder="Password"
                 />
             </div>
-            <button onClick={() => handleRegistration()}>Registration</button>
-            <button onClick={() => handleLogout()}>Logout</button>
+            <button className="login__button" onClick={() => handleRegistration()}>Registration</button>
+            <div>
+                <Link to={'/login'}>to Login</Link>
+            </div>
+            {/* <button onClick={() => handleLogout()}>Logout</button> */}
         </div>
     )
 }

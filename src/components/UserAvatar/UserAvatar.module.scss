@@ -1,0 +1,20 @@
+@import "scss/constans";
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: toRem(40);
+    height: toRem(40);
+    border-radius: 50%;
+    background-color: #ccc;
+    background: linear-gradient(77.41deg, $mainColor 7.87%, $mainColorOnHover 102.55%);
+
+    &_name {
+        font-size: toRem(20);
+        line-height: 125%; /* 20/16 */
+        text-transform: uppercase;
+        color: $whiteColor;
+    }
+}

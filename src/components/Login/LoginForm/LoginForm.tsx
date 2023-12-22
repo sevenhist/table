@@ -5,13 +5,13 @@ import { useState } from "react"
 import { toast } from "react-toastify";
 import './LoginForm.scss';
 import { Registration } from "components/Registration/Registration";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
     const dispatch = useAppDispatch();
     const [email, setInputEmail] = useState<string>('')
     const [password, setInputPassowrd] = useState<string>('')
-    
+    const navigate = useNavigate()
 
     const handleLogin = async () => {
         try {
@@ -19,6 +19,7 @@ export const LoginForm = () => {
             localStorage.setItem('token', response.data.accessToken)
             dispatch(setAuth(true));
             dispatch(setUser(response.data.user))
+            navigate('/cabinet')
             toast("Success Login", {
                 type: "success"
             });
@@ -62,7 +63,7 @@ export const LoginForm = () => {
             });
         }
     }
-    const checkAuth = async() => {
+    const checkAuth = async () => {
         try {
             const response = await AuthService.auth()
             localStorage.setItem('token', response.data.accessToken)
@@ -78,7 +79,7 @@ export const LoginForm = () => {
             });
         }
     }
-    
+
     return (
         <div>
             <div className="email_part">
@@ -98,7 +99,9 @@ export const LoginForm = () => {
                 />
             </div>
             <button className="login__button" onClick={() => handleLogin()}>Увійти</button>
-            <Link to={'/registration'} onClick={() => handleRegistration()}>Registration</Link>
+            <div>
+                <Link to={'/registration'}>to Registration</Link>
+            </div>
             {/* <button onClick={() => handleLogout()}>Logout</button> */}
         </div>
     )
