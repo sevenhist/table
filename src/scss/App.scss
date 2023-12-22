@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+@import "constans";
+@import "null";
+@import "common";
+.App {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
