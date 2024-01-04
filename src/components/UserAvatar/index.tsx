@@ -7,11 +7,11 @@ import s from './UserAvatar.module.scss';
 interface UserAvatarProps { }
 
 export const UserAvatar: FC<UserAvatarProps> = () => {
-    const user = useAppSelector(selectUser)!
+    const user = useAppSelector(selectUser)! // null немає
 
     return (
         <div className={s.avatar}>
-            <span className={s.avatar_name}>{user.email.substring(0, 1)}</span>
+            <span className={s.avatar_name}>{user?.email.substring(0, 1)}</span>
         </div>
     );
 };

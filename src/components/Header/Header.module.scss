@@ -1,0 +1,179 @@
+@import "scss/constans";
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: $whiteColor;
+    padding: toRem(10) 0;
+}
+.header_not_visible {
+    visibility: hidden;
+}
+.menu {
+    display: flex;
+    max-width: 75rem;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 toRem(15);
+    column-gap: toRem(20);
+    box-sizing: border-box;
+    &__catalog {
+        display: flex;
+        align-items: center;
+        padding: toRem(9) toRem(25);
+        height: toRem(40);
+        background-color: $accent;
+        column-gap: toRem(8);
+        color: $whiteColor;
+        font-size: toRem(15);
+        cursor: pointer;
+        &__icon {
+            color: $whiteColor;
+            width: toRem(20);
+            height: toRem(20);
+        }
+    }
+    @media (max-width: $mobile) {
+        &__catalog {
+            display: none;
+        }
+    }
+    &__catalog:hover {
+        background-color: $accentHover;
+        transition: all ease 0.5s;
+    }
+    &__search {
+        display: flex;
+        border: 1px solid $greyColor;
+        border-radius: toRem(3);    
+        height: toRem(40);
+        position: relative;
+        flex-basis: 72%;
+        &__icon:hover {
+            opacity: 0.7;
+        }
+        &__icon {
+            padding: 0 toRem(10);
+        }
+        &__icon img {
+            width: toRem(20);
+            height: toRem(20);
+        }
+        &__button {
+            padding: toRem(9) toRem(5);
+            background-color: $accent;
+            color: $whiteColor;
+            font-size: toRem(15);
+        }
+        @media(max-width: $mobileSmall) {
+            &__button p {
+                display: none;
+            }
+            &__input {
+                padding-left: toRem(10);
+            }
+            &__button {
+                display: none;
+            }
+            &__icon {
+                padding: toRem(9) toRem(10);
+                position: absolute;
+                right: 0;
+                border-left: 1px solid $greyColor;
+            }   
+        }
+        &__button:hover {
+            background-color: $accentHover;
+            transition: all ease 0.5s;
+        }
+        &__input {
+            width: 100%;
+            box-sizing: border-box; 
+        }
+    }
+    &__right {
+        display: flex;
+        height: toRem(40);
+        column-gap: toRem(20);
+        &__button:hover {
+            opacity: 0.7;
+        }
+        &__button img {
+            width: toRem(40);
+            height: toRem(40);
+        }
+        &__profile:hover {
+            opacity: 0.7;
+        }
+        &__profile {
+            &__logo {
+                width: toRem(40);
+                height: toRem(40);
+                cursor: pointer;
+            }
+        }
+        @media (max-width: $mobile) {
+            &__profile {
+                display: none;
+            }
+        }
+    }
+}
+//Burger
+.icon-menu {
+	display: none;
+	@media (max-width: $mobile) {
+		display: block;
+		position: relative;
+		width: toRem(30);
+		height: toRem(18);
+		cursor: pointer;
+		z-index: 5;
+        top: toRem(10);
+		span,
+		&::before,
+		&::after {
+			content: "";
+			transition: all 0.3s ease 0s;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			height: toRem(2);
+			background-color: #000;
+		}
+		&::before {
+			top: 0;
+		}
+		&::after {
+			bottom: 0;
+		}
+		span {
+			top: calc(50% - toRem(1));
+		}
+        &.menu-open { // icon-menu - father
+            span {
+                width: 0;
+            }
+            &::before,
+            &::after {
+        
+            }
+            &::before { // icon-menu - father 
+                top: calc(50% - toRem(1));
+                transform: rotate(-45deg);
+            }
+            &::after {
+                bottom: calc(50% - toRem(1));
+                transform: rotate(45deg);
+            }
+        }
+	}
+}
+.coffee_import_text {
+    color: $accent;
+}
+.buttonCatalog {
+    padding: toRem(9) toRem(15);
+    height: toRem(40);
+    border-radius: toRem(3);
+}

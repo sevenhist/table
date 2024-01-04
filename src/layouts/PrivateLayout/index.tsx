@@ -10,7 +10,7 @@ export const PrivateLayout: FC<PrivateLayoutProps> = () => {
 
     return (
         <>
-            {isAuth ? <Outlet /> : <Navigate to={'/login'} />}
-        </>
+            {isAuth ? <Outlet /> : <Navigate to={'/login'} />} 
+        </> 
     );
 };

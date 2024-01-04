@@ -1,0 +1,17 @@
+@import "scss/constans";
+.cabinet {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    margin-top: toRem(20);
+    &__container {
+        display: grid;
+        flex: 1 1 auto;
+        grid-template-columns: toRem(250) 1fr;
+        position: relative;
+    }
+    &__content {
+        padding-left: toRem(30);
+        min-height: toRem(500);
+    }
+}

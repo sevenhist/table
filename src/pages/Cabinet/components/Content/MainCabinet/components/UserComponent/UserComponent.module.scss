@@ -1,0 +1,26 @@
+@import "scss/constans";
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    &__title {
+        display: block;
+        margin-bottom: toRem(30);
+        text-align: center;
+        font-weight: 700;
+        font-size: toRem(21);
+    }
+    &__field {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: toRem(20);
+        align-items: center;
+        row-gap: toRem(5);
+    }
+    &__input {
+        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: toRem(20);
+    }
+}

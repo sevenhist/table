@@ -19,10 +19,12 @@ $fontFamily: 'Rubik';
 $fontSize: toRem(15); // где 14(px) - размер шрифта по умолчанию из макета
 
 // Основные цвета
-$mainColor: #60c403; // Цвет шрифта по умолчанию
-$mainColorOnHover: #60c403c4;
+$accent: #60c403; 
+$accentHover: #6bd804;
 $red: #d30008;
 $whiteColor: #fff;
+$whiteBackground: #f8fafb;
+$greyTextColor: #9d9b9b;
 $greyColor: #9ea3b5;
 $bgColor: #142257;
 $bgColorSemi: #1f3584;
@@ -92,16 +94,6 @@ body {
 */
 @if ($responsiveType==1) {
 	// Отзывчивая
-	[class*="__container"] {
-		@if ($maxWidthContainer>0) {
-			max-width: toRem($maxWidthContainer);
-			box-sizing: content-box;
-			margin: 0 auto;
-		}
-		@if ($containerPadding>0) {
-			padding: 0 toRem(math.div($containerPadding, 2));
-		}
-	}
 } @else {
 	// По брейк-поинтам
 	[class*="__container"] {

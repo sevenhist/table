@@ -8,8 +8,7 @@
     width: toRem(40);
     height: toRem(40);
     border-radius: 50%;
-    background-color: #ccc;
-    background: linear-gradient(77.41deg, $mainColor 7.87%, $mainColorOnHover 102.55%);
+    background: linear-gradient(77.41deg, $accent 7.87%, $accentHover 102.55%);
 
     &_name {
         font-size: toRem(20);

@@ -1,0 +1,24 @@
+@import "scss/constans";
+.logo {
+    display: flex;
+    flex: 0 0 toRem(95);
+    align-items: center;
+    flex-direction: column;
+    &__icon {
+        width: toRem(35);
+        height: toRem(35);
+        object-fit: contain;
+    }
+    &__text {
+        white-space: nowrap; // текст без переноса 
+        font-size: toRem(14);
+        font-weight: 700;
+        text-align: center;
+        color: $accent;
+    }
+    @media (max-width: $mobile) {
+        &__text {
+            display: none;
+        }
+    }
+}

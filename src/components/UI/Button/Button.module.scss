@@ -1,8 +1,24 @@
 @import "scss/constans";
 .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: toRem(12);
+    background-color: $accent;
+    color: $whiteColor;
+    padding: toRem(13);
+    text-align: center;
+    transition: all .2s ease;
+    min-width: toRem(240);
+    &:hover {
+        background-color: $accentHover;
+    }
+    &.fitContent {
+        min-width: auto;
+    }
     &_red{
         display: inline-block;
-        font-size: .75rem;
+        font-size: toRem(12);
         margin: toRem(10) auto 0;
         padding: toRem(6) toRem(18);
         text-align: center;

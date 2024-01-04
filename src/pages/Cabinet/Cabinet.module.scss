@@ -1,0 +1,9 @@
+@import "scss/constans";
+
+.profile {
+    &_logout {
+        padding: toRem(10) toRem(20);
+        background-color: $accent;
+        color: $whiteColor;
+    }
+}
