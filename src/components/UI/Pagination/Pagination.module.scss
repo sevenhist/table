@@ -1,0 +1,58 @@
+@import "scss/constans";
+
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $greyBackground;
+        border: toRem(1) solid #e9e9e9;
+        border-radius: toRem(5);
+        cursor: pointer;
+        font-size: toRem(14);
+        height: toRem(40);
+        padding: toRem(5);
+        transition: all .2s ease;
+        width: toRem(40);
+        &:hover {
+            background-color: #d9d9d9;
+        } 
+    }
+    &__active_button {
+        background-color: $accent;
+        color: $whiteColor;
+        &:hover {
+            background-color: $accent;
+        } 
+    }
+    &__previous__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $whiteColor;
+        border-radius: toRem(5);
+        transition: all .2s ease;
+        cursor: pointer;
+        font-size: toRem(14);
+        height: toRem(40);
+        padding: toRem(5);
+        width: toRem(40);
+    }
+    &__next__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $whiteColor;
+        border-radius: toRem(5);
+        transition: all .2s ease;
+        cursor: pointer;
+        font-size: toRem(14);
+        height: toRem(40);
+        padding: toRem(5);
+        width: toRem(40);
+    }
+}

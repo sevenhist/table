@@ -1,0 +1,104 @@
+@import "scss/constans";
+
+.categories {
+    min-height: toRem(550);
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    margin-top: toRem(20);
+}
+
+.title {
+    font-size: 1.313rem;
+    color: #161616;
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: toRem(20);
+    padding: 0 80px 15px 0;
+    position: relative;
+
+    &:before {
+        background-color: #b0b0b0;
+        bottom: 0;
+        content: "";
+        height: 0.0625rem;
+        left: 0;
+        position: absolute;
+        width: 100%;
+    }
+}
+
+.category_list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: toRem(30);
+    grid-row-gap: toRem(40);
+    column-gap: toRem(30);
+    height: 100%;
+    padding: toRem(15) 0;
+    row-gap: toRem(40);
+}
+@media (max-width: toRem(1200)) {
+    .category_list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: $mobile) {
+    .category_list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+.items {
+    &__main__item {
+        list-style: none;
+    }
+
+    &__main__link {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 toRem(5);
+
+        &__img {
+            height: toRem(110);
+            width: toRem(110);
+            transition: all .2s ease;
+        }
+    
+        &__img img {
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+            transition: all .2s ease;
+        }
+
+        &__text {
+            margin-top: toRem(10);
+            position: relative;
+            text-align: center;
+    
+            &::before {
+                background-color: #b0b0b0;
+                bottom: toRem(-5);
+                content: "";
+                height: toRem(1);
+                left: 0;
+                position: absolute;
+                transition: width .3s ease;
+                width: 0;
+                box-sizing: border-box;
+            }
+        }
+        &:hover &__text::before {
+            width: 100%;
+            transition: width .3s ease;
+        }
+        &:hover &__img img {
+            transform: scale(1.1);
+        }
+    }
+    
+    
+}

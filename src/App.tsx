@@ -19,6 +19,8 @@ import { MainLayout } from 'layouts/MainLayout';
 import { ROUTES } from 'app/routes';
 import { UserComponent } from 'pages/Cabinet/components/Content/MainCabinet/components/UserComponent/UserComponents';
 import { DealerComponent } from 'pages/Cabinet/components/Content/MainCabinet/components/DealerComponent/DealerComponent';
+import { Products } from 'pages/Products';
+import { Messages } from 'pages/Messages';
 
 
 function App() {
@@ -32,7 +34,6 @@ function App() {
       const checkAuth = async () => {
         try {
           const response = await AuthService.auth()
-          console.log(response)
           localStorage.setItem('token', response.data.accessToken)
           dispatch(setAuth(true))
           dispatch(setUser(response.data.user))
@@ -60,6 +61,8 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path={ROUTES.home} element={<Main />} />
           <Route path={ROUTES.catalog} element={<Catalog />} />
+          <Route path={`${ROUTES.catalog}/:categoryId`} element={<Products />} />
+          <Route path='messages' element={<Messages />} />
         </Route>
 
         <Route element={<AuthLayout />}>

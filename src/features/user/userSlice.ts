@@ -6,6 +6,7 @@ import AuthService from 'api/services/AuthService'
 import { AuthResponse } from 'models/response/AuthResponse'
 import { toast } from "react-toastify";
 import { AxiosError } from 'axios'
+import { ICategory } from 'models/ICategory'
 
 interface AuthInput {
   email: string,
@@ -53,6 +54,7 @@ export const fetchLogout = createAsyncThunk(
       return response;
   }
 )
+
 
 interface UserState {
   user: IUser | null,

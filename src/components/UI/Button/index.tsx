@@ -1,6 +1,8 @@
 import { FC, ReactNode } from 'react';
 import s from './Button.module.scss';
 import { StringLiteral } from 'typescript';
+import { Link } from 'react-router-dom';
+import { ROUTES } from 'app/routes';
 
 interface ButtonRedProps {
     children: ReactNode; 
@@ -25,7 +27,7 @@ interface LinkButton {
     children: ReactNode,
     className?: string,
     variables?: "fitContent",
-    href: string
+    to: string
 }
 
 export const Button: FC<ButtonProps> = ({ children, className, onClick, variables }) => {
@@ -34,9 +36,9 @@ export const Button: FC<ButtonProps> = ({ children, className, onClick, variable
     )
 }
 
-export const LinkButton: FC<LinkButton> = ({children, href, className, variables}) => {
+export const LinkButton: FC<LinkButton> = ({children, to, className, variables}) => {
     return (
-        <a href={href} className={`${className ? className : ''} ${s.button} ${variables ? s[variables] : ''}`}>{children}</a>
+        <Link to={to} className={`${className ? className : ''} ${s.button} ${variables ? s[variables] : ''}`}>{children}</Link>
     )
 }
 

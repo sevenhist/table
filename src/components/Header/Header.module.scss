@@ -177,3 +177,39 @@
     height: toRem(40);
     border-radius: toRem(3);
 }
+.icon-logo {
+    display: flex;
+    flex: 0 0 toRem(95);
+    align-items: center;
+    flex-direction: column;
+}
+@media (max-width: $mobile) {
+    .buttonCatalog {
+        display: none;
+    }
+    .search {
+        flex: 1 1 auto;
+    }
+    .icon__logo {
+        display: flex;
+        flex: none;
+        align-items: center;
+        flex-direction: none;
+        justify-content: center;
+    }    
+    .menu__right__profile {
+        margin-left: auto;
+    }
+    .menu__right__button {
+        margin-right: auto;
+    }
+    .menu__search {
+        display: flex;
+        border: 1px solid $greyColor;
+        border-radius: toRem(3);    
+        height: toRem(40);
+        position: relative;
+        flex-basis: 80%;
+    }
+}
+

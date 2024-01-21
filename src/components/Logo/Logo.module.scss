@@ -20,5 +20,10 @@
         &__text {
             display: none;
         }
+        &__icon {
+            width: toRem(30);
+            height: toRem(30);
+            object-fit: contain;
+        }
     }
 }

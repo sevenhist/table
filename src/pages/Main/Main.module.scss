@@ -1,9 +1,12 @@
 @import "scss/constans";
+
+
 .main {
     display: grid;
     grid-template-columns: 1fr;
     background-color: $whiteColor;
     padding: toRem(10) 0;
+
     &__wrapper {
         display: flex;
         max-width: 75rem;
@@ -12,14 +15,20 @@
         padding: 0 toRem(15);
         column-gap: toRem(20);
         box-sizing: border-box;
+
         @media(max-width: em(1200)) {
             flex-direction: column;
-        }   
+            row-gap: toRem(25);
+        }
     }
 }
- 
+.swiper {
+    max-width: 100%;
+    width: 100%;
+} 
 .slide {
     position: relative;
+
     &::before {
         content: '';
         left: 0;
@@ -29,12 +38,16 @@
         width: 100%;
         height: 100%;
     }
+
     &__img {
         object-fit: cover; // cover - ростягується  
         width: 100%;
         height: toRem(425);
-        @include adaptiveValue('height', 425, 226, 1200, 375, 1)
+        max-width: 100%;
+        @include adaptiveValue('height', 425, 226, 1200, 375, 1);
+        object-position: center;
     }
+
     &__block {
         top: 50%; // размещение відносно батька якщо абсолют
         transform: translateY(-50%);
@@ -44,9 +57,11 @@
         color: $whiteColor;
         text-align: center;
     }
+
     &__title {
         font-size: toRem(27);
     }
+
     &__action {
         margin-top: toRem(10);
         font-size: toRem(41);
@@ -54,10 +69,12 @@
         color: $red;
         text-align: center;
     }
+
     &__sale {
         font-size: toRem(27);
         margin-top: toRem(5);
     }
+
     .slide__button {
         font-size: toRem(21);
         margin-top: toRem(30);
@@ -68,15 +85,18 @@
     // margin-right: auto;
     width: 100%;
     max-width: toRem(950);
+
     @media(max-width: em(1200)) {
         max-width: 100%;
-    }   
+    }
+
     .swiper {
         width: 100%;
+
         &-slide {
             @media(max-width: em(1200)) {
                 width: 100% !important;
-            }   
+            }
         }
     }
 
@@ -90,21 +110,24 @@
     border: none;
     row-gap: toRem(10);
     flex: 1 1 auto;
+
     @media(max-width: em(1200)) {
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin-top: toRem(25);
-    }   
+    }
 }
 
 .action {
     display: flex;
     align-items: center;
     flex-direction: column;
+
     &__title {
         text-align: center;
         font-size: toRem(15);
     }
+
     &__sale {
         margin-top: toRem(5);
         text-align: center;
@@ -112,48 +135,56 @@
         font-size: toRem(24);
         font-weight: 700;
     }
+
     &__text {
         margin-top: toRem(5);
         font-size: toRem(15);
         text-align: center;
     }
+
     &__image {
         height: toRem(98);
         margin: toRem(10) auto 0;
         position: relative;
         width: toRem(98);
+
         @media(max-width: em(1200)) {
             height: toRem(240);
             width: toRem(240);
-            @include adaptiveValue('width', 240, 140, 1200, 375, 1); 
+            @include adaptiveValue('width', 240, 140, 1200, 375, 1);
             @include adaptiveValue('height', 240, 140, 1200, 375, 1)
-        }  
+        }
     }
+
     &__image img {
         height: 100%;
         object-fit: cover;
         object-position: center;
         width: 100%;
     }
+
     &__prices {
-        background: hsla(0,0%,100%,.8);
+        background: hsla(0, 0%, 100%, .8);
         border-top-left-radius: 1em;
         bottom: toRem(-3);
         position: absolute;
         padding: toRem(5);
-        right: clamp(-0.9375rem,0.441826307rem + -2.2091312224vw,6.25e-8rem);
-    } 
+        right: clamp(-0.9375rem, 0.441826307rem + -2.2091312224vw, 6.25e-8rem);
+    }
+
     &__prices__old {
-        color: rgba(0,0,0,.6);
+        color: rgba(0, 0, 0, .6);
         font-size: .625rem;
         text-align: right;
         text-decoration: line-through;
     }
+
     &__prices__new {
         text-align: right;
         color: #d30008;
         font-size: .9375rem;
     }
+
     &__btn {
         display: inline-block;
         font-size: .75rem;
@@ -164,7 +195,32 @@
         color: $whiteColor;
         background-color: #d30008;
     }
+
     &__btn:hover {
         background-color: #930005;
+    }
+}
+
+.button__catalog {
+    display: flex;
+    padding: toRem(9) toRem(37);
+    height: toRem(40);
+    border-radius: toRem(3);
+    width: 100%;
+    position: relative;
+}
+
+.menu__catalog__icon {
+    color: $whiteColor;
+    width: toRem(20);
+    height: toRem(20);
+}
+.catalog__button__container {
+    display: none;
+}
+
+@media (max-width: em(1200)) {
+    .catalog__button__container {
+        display: block;
     }
 }
