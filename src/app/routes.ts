@@ -1,7 +1,13 @@
 export const ROUTES = {
     home: "/",
     catalog: "/catalog",
-
+    product: "/product",
+    productInfo: {
+        information: "/information",
+        characteristics: "/characteristics",
+        comments: "/comments",
+        delivery: "/delivery"
+    },
     AUTH: {
         login: "/login",
         registration: "/registration"

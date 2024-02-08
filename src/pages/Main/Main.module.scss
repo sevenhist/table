@@ -1,20 +1,11 @@
 @import "scss/constans";
 
-
 .main {
-    display: grid;
-    grid-template-columns: 1fr;
-    background-color: $whiteColor;
     padding: toRem(10) 0;
 
     &__wrapper {
         display: flex;
-        max-width: 75rem;
-        margin: 0 auto;
-        width: 100%;
-        padding: 0 toRem(15);
         column-gap: toRem(20);
-        box-sizing: border-box;
 
         @media(max-width: em(1200)) {
             flex-direction: column;
@@ -22,13 +13,12 @@
         }
     }
 }
-.swiper {
-    max-width: 100%;
-    width: 100%;
-} 
+
 .slide {
     position: relative;
-
+    @media(max-width: em(1200)) {
+        width: 100%;
+    }
     &::before {
         content: '';
         left: 0;
@@ -59,25 +49,25 @@
     }
 
     &__title {
-        font-size: toRem(27);
+        @include adaptiveValue("font-size", 27, 15)
     }
 
     &__action {
         margin-top: toRem(10);
-        font-size: toRem(41);
+        @include adaptiveValue("font-size", 41, 27);
         font-weight: 700;
         color: $red;
         text-align: center;
     }
 
     &__sale {
-        font-size: toRem(27);
+        @include adaptiveValue("font-size", 27, 15);
         margin-top: toRem(5);
     }
 
     .slide__button {
-        font-size: toRem(21);
-        margin-top: toRem(30);
+        @include adaptiveValue("font-size", 21, 15);
+        @include adaptiveValue("margin-top", 30, 15);
     }
 }
 
@@ -86,20 +76,18 @@
     width: 100%;
     max-width: toRem(950);
 
-    @media(max-width: em(1200)) {
-        max-width: 100%;
-    }
-
     .swiper {
         width: 100%;
-
-        &-slide {
-            @media(max-width: em(1200)) {
-                width: 100% !important;
-            }
-        }
+        max-width: 100%;
+        margin: 0 -15px;
+        padding: 0 5px;
     }
-
+    @media(max-width: em(1200)) {
+        max-width: toRem(1200);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 .small__actions {
@@ -215,6 +203,7 @@
     width: toRem(20);
     height: toRem(20);
 }
+
 .catalog__button__container {
     display: none;
 }

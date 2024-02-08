@@ -1,0 +1,28 @@
+@import "scss/constans";
+
+.product__wrapper {
+    margin-top: toRem(25);
+}
+.tab_product {
+    &__subtitle {
+        display: block;
+        max-width: 100%;
+        text-align: center;
+        color: #161616;
+        font-weight: 500;
+        @include adaptiveValue("font-size", 21, 17)
+    }
+    &__text {
+        margin-top: toRem(20);
+        text-align: center;
+        &:not(:last-child) {
+            margin-bottom: toRem(30);
+        }
+        & p {
+            line-height: 1.5;
+            & strong {
+                font-weight: 500;
+            }
+        }
+    }
+}

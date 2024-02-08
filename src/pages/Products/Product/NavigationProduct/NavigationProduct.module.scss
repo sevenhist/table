@@ -1,0 +1,44 @@
+@import "scss/constans";
+
+.nav_product {
+    border-bottom: 1px solid #e9e9e9;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-top: toRem(10);
+    &__list {
+        display: flex;
+        align-items: center;
+        column-gap: toRem(30);
+    }
+
+    &__btn {
+        display: inline-block;
+        padding: toRem(12) 0;
+        position: relative;
+        transition: all .5s ease;
+        white-space: nowrap;
+        &__active {
+            color: $accent;
+            &.nav_product__btn::before {
+                width: 100%;
+            }
+        }
+        &:hover {
+            color: $accent;
+            &::before {
+                width: 100%;
+            }
+        }
+        &::before {
+            background-color: $accent;
+            bottom: 0;
+            content: "";
+            height: toRem(1);
+            left: 50%;
+            position: absolute;
+            transform: translateX(-50%);
+            transition: all .5s ease;
+            width: 0;
+        }
+    }
+}

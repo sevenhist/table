@@ -1,13 +1,16 @@
 import { useAppDispatch, useAppSelector } from "app/hooks"
 import { Pagination } from "components/ui/Pagination"
-import { fetchOneCategory, fetchProducts, selectOneCategory, selectProducts } from "features/user/shopSlice"
+import { fetchOneCategory, fetchProduct, fetchProducts, selectOneCategory, selectOneProduct, selectProducts } from "features/user/shopSlice"
 import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { usePagination } from "shared/hooks/usePagination"
 import s from './Products.module.scss';
 import { Container } from "components/ui/Container"
 import { IProduct } from "models/IProduct"
 import { Button } from "components/ui/Button"
+import { addProductToCart, selectCartProducts } from "features/user/cartSlice"
+import { Product } from "./Product"
+import { ROUTES } from "app/routes"
 
 export const Products = () => {
     const { categoryId } = useParams()
@@ -22,6 +25,10 @@ export const Products = () => {
     const itemsPerPage = 32
     const result = usePagination({ array: products, itemsPerPage })
 
+    const addProductInCart = (product: IProduct) => {
+        dispatch(addProductToCart(product))
+    }  
+    
     return (
         <div className={s.products}>
             <Container>
@@ -30,7 +37,7 @@ export const Products = () => {
                     {
                         result.slicedArray.map((product: IProduct) => {
                             return (
-                                <div className={s.products__list__item} key={product.id}>
+                                <Link to={`${ROUTES.product}/${product.id}` + ROUTES.productInfo.information} className={s.products__list__item} key={product.id}>
                                     <div className={s.products__list__actions}>
                                         <div className={`${s.products__list__action} ${s.products__list__action__sale}`}>
                                             Акція -50%
@@ -68,14 +75,14 @@ export const Products = () => {
                                             {product.price} ₴
                                         </div>
                                     </div>
-                                    <Button className={s.products__list__btn}>Купити</Button>
-                                </div>
+                                    <Button onClick={() => {addProductInCart(product)}} className={s.products__list__btn}>Купити</Button>
+                                </Link>
                             )
                         })
                     }
                 </ul>
                 {
-                    products.length > itemsPerPage && <Pagination handlePageClick={result.handlePageClick} pageCount={result.pageCount} />     
+                    products.length > itemsPerPage && <Pagination handlePageClick={result.handlePageClick} pageCount={result.pageCount} />
                 }
             </Container>
         </div>

@@ -1,0 +1,78 @@
+@import "scss/constans";
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 99;
+    background: rgba(0,0,0,.387);
+    backdrop-filter: blur(toRem(1.6));
+    transition: all .2s ease;
+    &__wraper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #00000070;
+    }
+    &__content {
+        transform: scale(1);
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        padding: toRem(24);
+        height: clamp(250px,85vh,600px);
+        max-width: toRem(750);
+        overflow-y: auto;
+        position: absolute;
+        padding: 0;
+        width: 100%;
+        inset: 0; // устанавлює для всіх left top right bottom нуль
+        margin: auto; 
+        border-radius: toRem(3);
+        box-shadow: 0 0 toRem(12) $blackTextColor;
+        max-height: 80vh;
+        &__close {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #797878;
+            height: toRem(50);
+            justify-content: center;
+            width: toRem(50);
+            &svg {
+                stroke: currentColor;
+                height: toRem(18);
+                width: toRem(18);
+                transition: all .2s ease;
+            }
+        }
+        &__top {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e9e9e9;
+            box-sizing: border-box;
+            padding-left: toRem(12);
+        }
+        h1 {
+            color: #34302e;
+            flex: 1 1 auto;
+            font-size: toRem(20);
+            font-weight: 700;
+        }
+
+        &__image {
+            margin: 0 auto;
+            height: toRem(120);
+            transition: all .2s ease;
+            width: toRem(120);
+        }
+    }
+}
+.product {
+    display: flex;
+}

@@ -14,7 +14,7 @@ interface Catalog { }
 
 export const Catalog: FC<Catalog> = () => {
     const dispatch = useAppDispatch();
-
+    
     const categories = useAppSelector(selectCategories)
     useEffect(() => {
         dispatch(fetchCategories())
@@ -40,8 +40,7 @@ export const Catalog: FC<Catalog> = () => {
                                 </Link>
                             </li>
                         )
-                    })
-                    }
+                    })}
                 </ul>
                 <Pagination handlePageClick={result.handlePageClick} pageCount={result.pageCount} />
             </Container>

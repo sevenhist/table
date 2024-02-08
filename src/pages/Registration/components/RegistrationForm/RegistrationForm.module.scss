@@ -8,6 +8,9 @@
     justify-content: center;
     padding: 2.859rem 0;
     width: 100%;
+    @media (max-width: 550px) {
+        padding: 0;
+    }
     &__container {
         background-color: #fff;
         flex: 1 1 auto; // 1-елемент может увеличиваться в размере если есть свободное пространство, 1-елемент может уменьшаться если не хвататет места, auto-размер задан от того, что внутри
@@ -20,6 +23,9 @@
         }
         &_rAnim{
             animation: registerAnim .5s ease 1;
+        }
+        @media (max-width: 550px) {
+            flex: 1 1 auto;
         }
     }
     &__logo {

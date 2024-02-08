@@ -30,6 +30,15 @@
     &__list {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+        @media (max-width: em(1200)) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @media (max-width: $mobile) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: $mobileSmall) {
+            grid-template-columns: repeat(1, 1fr);
+        }
         grid-gap: toRem(30);
         gap: toRem(30);
         padding: toRem(15) 0;

@@ -1,16 +1,37 @@
 import { Link } from "react-router-dom";
 import s from "./Header.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "app/hooks";
 import { UserAvatar } from "components/UserAvatar";
 import { selectAuth } from "features/user/userSlice";
 import { ROUTES } from "app/routes";
 import { Logo } from "components/Logo";
 import { Button, LinkButton } from "components/ui/Button";
+import { CartModal } from "components/CartModal";
+import { MobileMenu } from "components/MobileMenu";
 
 export const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const [visibleHeader, setVisibleHeader] = useState(true);
+  const [visibleCartMenu, setVisibleCartMenu] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) { 
+        setIsFixed(true);
+      } else if (window.scrollY === 0) {
+        setIsFixed(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
   const changeVisibleHeader = () => {
     setVisibleHeader(false);
   }
@@ -19,8 +40,16 @@ export const Header = () => {
   const menuOpen = () => {
     setIsActive(!isActive);
   }
+
+  const openCartMenu = () => {
+    setVisibleCartMenu(true)
+  }
+  const closeCartMenu = () => {
+    setVisibleCartMenu(false)
+  }
   return (
-      <header className={visibleHeader ?  s.header : s.header_not_visible}>
+    <>
+      <header className={`${isFixed && s.fixed} ${visibleHeader ?  s.header : s.header_not_visible}`}>
         <div className={`${s.header__menu} ${s.menu}`}>
           <button onClick={menuOpen} type="button" className={`${s['icon-menu']} ${isActive ? s['menu-open'] : ''}`}><span></span></button>
           <Logo className={s.icon__logo} />
@@ -36,7 +65,7 @@ export const Header = () => {
             <button className={s.menu__search__button}><span>Знайти</span></button>
           </div>
           <div className={s.menu__right}>
-            <button className={s.menu__right__button}>
+            <button onClick={openCartMenu} className={s.menu__right__button}>
               <img src="https://plesh9.github.io/coffe-import/static/media/basket.58667f9ab914ba96bbda9ab2cdd754a3.svg" alt="Image" />
             </button>
             {isAuth ? (
@@ -51,5 +80,8 @@ export const Header = () => {
           </div>
         </div>
       </header>
+      <MobileMenu onClose={menuOpen} isActive={isActive} />
+      {visibleCartMenu ? <CartModal closeCartMenu={closeCartMenu} /> : ''}
+      </>
   );
 }

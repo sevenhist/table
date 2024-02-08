@@ -1,0 +1,9 @@
+@import "scss/constans.scss";
+
+.text {
+    margin-top: toRem(25);
+    max-width: toRem(800);
+    color: #161616;
+    font-weight: 500;
+    @include adaptiveValue("font-size", 21, 17)
+}

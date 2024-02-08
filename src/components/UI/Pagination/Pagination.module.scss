@@ -5,6 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: auto;
+    padding-top: toRem(50);
     &__button {
         display: flex;
         align-items: center;

@@ -6,9 +6,11 @@ import { Autoplay } from 'swiper/modules';
 import { LinkButton, RedButton, RedLinkButton } from 'components/ui/Button';
 import { Container } from 'components/ui/Container';
 import { ROUTES } from 'app/routes';
+import { useState } from 'react';
 
 
 export const Main = () => {
+
     const slides = [
         {
             image: swipeimg,
@@ -34,16 +36,16 @@ export const Main = () => {
     ]
 
     return (
-        <Container>
-            <div className={s.main}>
+        <div className={s.main}>
+            <Container>
                 <div className={s.main__wrapper}>
                     <div className={s.mySwiper}>
                         <Swiper
                             modules={[Autoplay]}
-                            spaceBetween={-10}
+                            spaceBetween={0}
                             slidesPerView={1}
                             // autoplay={{ delay: 3000 }}
-                            
+                            centeredSlides={true}
                             speed={1000}
                             loop={true}
                             className={s.swiper}
@@ -97,8 +99,9 @@ export const Main = () => {
                             <RedLinkButton href='#'>Купити</RedLinkButton>
                         </div>
                     </div>
+
                 </div>
-            </div>
-        </Container>
+            </Container>
+        </div>
     );
 };

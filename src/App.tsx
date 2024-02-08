@@ -12,7 +12,7 @@ import { setAuth, setUser } from 'features/user/userSlice';
 import AuthService from 'api/services/AuthService';
 import { Registration } from 'pages/Registration/Registration';
 import { PrivateLayout } from 'layouts/PrivateLayout';
-import { Cabinet} from 'pages/Cabinet';
+import { Cabinet } from 'pages/Cabinet';
 import { AuthLayout } from 'layouts/AuthLayout';
 import { PageLoader } from 'components/Loader';
 import { MainLayout } from 'layouts/MainLayout';
@@ -21,6 +21,12 @@ import { UserComponent } from 'pages/Cabinet/components/Content/MainCabinet/comp
 import { DealerComponent } from 'pages/Cabinet/components/Content/MainCabinet/components/DealerComponent/DealerComponent';
 import { Products } from 'pages/Products';
 import { Messages } from 'pages/Messages';
+import { Product } from 'pages/Products/Product';
+import { Characters } from 'pages/Products/Product/Characters';
+import { Comments } from 'pages/Products/Product/Comments';
+import { Delivery } from 'pages/Products/Product/Delivery';
+import { ProductLayout } from 'layouts/ProductLayout';
+import { SuperHeader } from 'components/MyRef';
 
 
 function App() {
@@ -50,6 +56,7 @@ function App() {
       checkAuth()
     }
   }, [])
+  
 
   if (isLoading) {
     return <PageLoader />
@@ -62,6 +69,12 @@ function App() {
           <Route path={ROUTES.home} element={<Main />} />
           <Route path={ROUTES.catalog} element={<Catalog />} />
           <Route path={`${ROUTES.catalog}/:categoryId`} element={<Products />} />
+          <Route element={<ProductLayout />}>
+            <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.information} element={<Product />} />
+            <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.characteristics} element={<Characters />} />
+            <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.comments} element={<Comments />} />
+            <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.delivery} element={<Delivery />} />
+          </Route>
           <Route path='messages' element={<Messages />} />
         </Route>
 
@@ -72,15 +85,14 @@ function App() {
 
         <Route element={<PrivateLayout />}>
           <Route path={ROUTES.PRIVATE.cabinet} element={<Cabinet />}>
-              <Route index element={<Navigate to={ROUTES.PRIVATE.personalInformation} />} />
-              <Route path={ROUTES.PRIVATE.personalInformation} element={<UserComponent />} />
-              <Route path={ROUTES.PRIVATE.orders} element={<p>content 1</p>} />
-              <Route path={ROUTES.PRIVATE.dealership} element={<DealerComponent />} />
-              <Route path={ROUTES.PRIVATE.conditions} element={<p>content 3</p>} />
-              <Route path={ROUTES.PRIVATE.applications} element={<p>content 4</p>} />
+            <Route index element={<Navigate to={ROUTES.PRIVATE.personalInformation} />} />
+            <Route path={ROUTES.PRIVATE.personalInformation} element={<UserComponent />} />
+            <Route path={ROUTES.PRIVATE.orders} element={<p>content 1</p>} />
+            <Route path={ROUTES.PRIVATE.dealership} element={<DealerComponent />} />
+            <Route path={ROUTES.PRIVATE.conditions} element={<p>content 3</p>} />
+            <Route path={ROUTES.PRIVATE.applications} element={<p>content 4</p>} />
           </Route>
         </Route>
-
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

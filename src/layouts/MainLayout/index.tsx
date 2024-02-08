@@ -1,5 +1,5 @@
 import { Header } from 'components/Header';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 interface MainLayoutProps { }

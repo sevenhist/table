@@ -13,16 +13,13 @@ interface Pagination {
 }
 
 export const Pagination: FC<Pagination> = ({ handlePageClick, pageCount = 8 }) => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const currentPage = searchParams.get('page')
+
     const onPageChange = (selectedItem: { selected: number }) => {
-        setSearchParams({ page: `${selectedItem.selected + 1}` });
         handlePageClick(selectedItem);
     }
 
     return (
         <ReactPaginate
-            initialPage={currentPage ? parseInt(currentPage) - 1 : 0}
             className={s.pagination}
             pageLinkClassName={s.pagination__button}
             activeLinkClassName={s.pagination__active_button}
