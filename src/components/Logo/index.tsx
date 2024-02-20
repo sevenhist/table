@@ -6,14 +6,16 @@ import { ROUTES } from "app/routes";
 
 interface LogoProps {
     withText?: boolean,
-    className?: string
+    className?: string,
+    adaptiveText?: boolean,
+    onClick?: () => void
 }
 
-export const Logo: FC<LogoProps> = ({ withText = true, className }) => {
+export const Logo: FC<LogoProps> = ({ withText = true, className, adaptiveText = true, onClick }) => {
     return (
-        <Link to={ROUTES.home} className={`${className ? className : ''} ${s.logo}`}>
+        <Link onClick={onClick} to={ROUTES.home} className={`${className && className} ${s.logo}`}>
             <img className={s.logo__icon} src={logo} alt="Logo" />
-            {withText ? <p className={s.logo__text}>Coffee Import</p> : ''}
+            {withText ? <p className={`${adaptiveText ? s.logo__adaptive_text : s.logo__text}`}>Coffee Import</p> : ''}
         </Link>
     )
 }

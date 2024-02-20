@@ -1,13 +1,21 @@
 @import "scss/constans";
 .logo {
-    display: flex;
     flex: 0 0 toRem(95);
     align-items: center;
+    display: flex;
     flex-direction: column;
+    justify-content: center;
     &__icon {
         width: toRem(35);
         height: toRem(35);
         object-fit: contain;
+    }
+    &__adaptive_text {
+        white-space: nowrap; // текст без переноса 
+        @include adaptiveValue("font-size", 14, 8);
+        font-weight: 700;
+        text-align: center;
+        color: $accent;
     }
     &__text {
         white-space: nowrap; // текст без переноса 
@@ -17,9 +25,6 @@
         color: $accent;
     }
     @media (max-width: $mobile) {
-        &__text {
-            display: none;
-        }
         &__icon {
             width: toRem(30);
             height: toRem(30);

@@ -8,8 +8,9 @@
     top: toRem(-100);
     left: 0;
     width: 100%;
-    z-index: 999;
+    z-index: 159;
 }
+
 .fixed {
     display: grid;
     grid-template-columns: 1fr;
@@ -18,7 +19,7 @@
     left: 0;
     width: 100%;
     position: fixed;
-    transition: all .7s ease;
+    transition: all 0.7s ease;
     transform: translateY(toRem(100));
 }
 .header_not_visible {
@@ -44,12 +45,6 @@
         color: $whiteColor;
         font-size: toRem(15);
         cursor: pointer;
-
-        &__icon {
-            color: $whiteColor;
-            width: toRem(20);
-            height: toRem(20);
-        }
     }
 
     @media (max-width: $mobile) {
@@ -91,7 +86,7 @@
             font-size: toRem(15);
         }
 
-        @media(max-width: $mobileSmall) {
+        @media (max-width: $mobileSmall) {
             &__button p {
                 display: none;
             }
@@ -195,17 +190,17 @@
         }
 
         &.menu-open {
-
             // icon-menu - father
             span {
                 width: 0;
             }
 
             &::before,
-            &::after {}
+            &::after {
+            }
 
             &::before {
-                // icon-menu - father 
+                // icon-menu - father
                 top: calc(50% - toRem(1));
                 transform: rotate(-45deg);
             }

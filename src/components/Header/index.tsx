@@ -1,24 +1,29 @@
 import { Link } from "react-router-dom";
 import s from "./Header.module.scss";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useAppSelector } from "app/hooks";
 import { UserAvatar } from "components/UserAvatar";
 import { selectAuth } from "features/user/userSlice";
 import { ROUTES } from "app/routes";
 import { Logo } from "components/Logo";
-import { Button, LinkButton } from "components/ui/Button";
+import {LinkButton } from "components/ui/Button";
 import { CartModal } from "components/CartModal";
 import { MobileMenu } from "components/MobileMenu";
+import useScrollLock from "hooks/useScrollLock";
 
-export const Header = () => {
-  const [isActive, setIsActive] = useState(false);
+interface HeaderProps {
+
+}
+export const Header: FC<HeaderProps> = () => {
   const [visibleHeader, setVisibleHeader] = useState(true);
   const [visibleCartMenu, setVisibleCartMenu] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
+  const [isActiveMobileMenu, setIsActiveMobileMenu] = useState(false);
+  const { setIsLocked } = useScrollLock()
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) { 
+      if (window.scrollY > 100) {
         setIsFixed(true);
       } else if (window.scrollY === 0) {
         setIsFixed(false);
@@ -26,11 +31,11 @@ export const Header = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []); 
+  }, []);
 
   const changeVisibleHeader = () => {
     setVisibleHeader(false);
@@ -38,23 +43,29 @@ export const Header = () => {
   const isAuth = useAppSelector(selectAuth)
 
   const menuOpen = () => {
-    setIsActive(!isActive);
+    if (isActiveMobileMenu) {
+      setIsActiveMobileMenu(false);
+      setIsLocked(false);
+    } else {
+      setIsActiveMobileMenu(true);
+      setIsLocked(true)
+    }
   }
-
   const openCartMenu = () => {
     setVisibleCartMenu(true)
+    setIsLocked(true);
   }
   const closeCartMenu = () => {
     setVisibleCartMenu(false)
+    setIsLocked(false);
   }
   return (
     <>
-      <header className={`${isFixed && s.fixed} ${visibleHeader ?  s.header : s.header_not_visible}`}>
-        <div className={`${s.header__menu} ${s.menu}`}>
-          <button onClick={menuOpen} type="button" className={`${s['icon-menu']} ${isActive ? s['menu-open'] : ''}`}><span></span></button>
-          <Logo className={s.icon__logo} />
-          <LinkButton to={ROUTES.catalog} variables="fitContent" className={s.buttonCatalog}>
-            <svg className={s.menu__catalog__icon} viewBox="0 0 24 24" fill="currentColor" id="icon-catalog"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m17 2.75735-4.2427 4.24264 4.2427 4.24261 4.2426-4.24261zm-5.6569 2.82843c-.7811.78104-.7811 2.04738 0 2.82842l4.2426 4.2427c.7811.781 2.0475.781 2.8285 0l4.2426-4.2427c.781-.78104.781-2.04738 0-2.82842l-4.2426-4.24264c-.781-.781048-2.0474-.781048-2.8285 0z"></path><path d="m7 4h-4c-.55228 0-1 .44772-1 1v4c0 .5523.44772 1 1 1h4c.55228 0 1-.4477 1-1v-4c0-.55228-.44772-1-1-1zm-4-2c-1.65685 0-3 1.34315-3 3v4c0 1.6569 1.34315 3 3 3h4c1.65685 0 3-1.3431 3-3v-4c0-1.65685-1.34315-3-3-3z"></path><path d="m7 16h-4c-.55228 0-1 .4477-1 1v4c0 .5523.44772 1 1 1h4c.55228 0 1-.4477 1-1v-4c0-.5523-.44772-1-1-1zm-4-2c-1.65685 0-3 1.3431-3 3v4c0 1.6569 1.34315 3 3 3h4c1.65685 0 3-1.3431 3-3v-4c0-1.6569-1.34315-3-3-3z"></path><path d="m19 16h-4c-.5523 0-1 .4477-1 1v4c0 .5523.4477 1 1 1h4c.5523 0 1-.4477 1-1v-4c0-.5523-.4477-1-1-1zm-4-2c-1.6569 0-3 1.3431-3 3v4c0 1.6569 1.3431 3 3 3h4c1.6569 0 3-1.3431 3-3v-4c0-1.6569-1.3431-3-3-3z"></path></g></svg>
+      <header className={`${isFixed && s.fixed} ${visibleHeader ? s.header : s.header_not_visible}`}>
+        <div className={`${s.menu}`}>
+          <button onClick={menuOpen} type="button" className={`${s['icon-menu']} ${isActiveMobileMenu ? s['menu-open'] : ''}`}><span></span></button>
+          <Logo className={s.icon__logo} adaptiveText={true} />
+          <LinkButton to={ROUTES.catalog} variables="fitContent" className={s.buttonCatalog} withPicture={true}>
             <span>Каталог</span>
           </LinkButton>
           <div className={s.menu__search}>
@@ -80,8 +91,8 @@ export const Header = () => {
           </div>
         </div>
       </header>
-      <MobileMenu onClose={menuOpen} isActive={isActive} />
-      {visibleCartMenu ? <CartModal closeCartMenu={closeCartMenu} /> : ''}
-      </>
+      <MobileMenu onCloseMobileMenu={menuOpen} changeVisibleHeader={changeVisibleHeader} isActiveMobileMenu={isActiveMobileMenu} />
+      <CartModal closeCartMenu={closeCartMenu} visibleCartMenu={visibleCartMenu} />
+    </>
   );
 }

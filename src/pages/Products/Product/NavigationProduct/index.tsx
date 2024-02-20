@@ -21,7 +21,7 @@ export const NavigationProduct: FC = () => {
     const splitLocation = pathname.split("/");
     const links = [
         {
-            url: ROUTES.productInfo.information,
+            url: "",
             text: "Усе про товар"
         },
         {

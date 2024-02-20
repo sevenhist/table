@@ -29,6 +29,7 @@ import { ProductLayout } from 'layouts/ProductLayout';
 import { SuperHeader } from 'components/MyRef';
 
 
+
 function App() {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false)
@@ -70,14 +71,13 @@ function App() {
           <Route path={ROUTES.catalog} element={<Catalog />} />
           <Route path={`${ROUTES.catalog}/:categoryId`} element={<Products />} />
           <Route element={<ProductLayout />}>
-            <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.information} element={<Product />} />
+            <Route path={`${ROUTES.product}/:id`} element={<Product />} />
             <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.characteristics} element={<Characters />} />
             <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.comments} element={<Comments />} />
             <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.delivery} element={<Delivery />} />
           </Route>
           <Route path='messages' element={<Messages />} />
         </Route>
-
         <Route element={<AuthLayout />}>
           <Route path={ROUTES.AUTH.login} element={<Login />} />
           <Route path={ROUTES.AUTH.registration} element={<Registration />} />

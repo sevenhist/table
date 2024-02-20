@@ -29,4 +29,10 @@
             background-color: #ab080d;
         }
     }
+    &__icon {
+        color: $whiteColor;
+        width: toRem(20);
+        height: toRem(20);
+    }
 }
+

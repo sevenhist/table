@@ -9,14 +9,17 @@ import { Button } from 'components/ui/Button';
 import { Characters } from './Characters';
 import { ROUTES } from 'app/routes';
 import { NavigationProduct } from './NavigationProduct';
+import useScrollLock from 'hooks/useScrollLock';
+import { CartModal } from 'components/CartModal';
+import { IProduct } from 'models/IProduct';
+import { addProductToCart } from 'features/user/cartSlice';
 
 
 export const Product: FC = () => {
     const { id } = useParams()
     const dipsatch = useAppDispatch()
-    useEffect(() => {
-        dipsatch(fetchProduct(id as string))
-    }, []) // позволяет указывать функцию, которая будет запущена после того, как React обновит DOM(сайт)
+    const [visibleCartMenu, setVisibleCartMenu] = useState(false);
+    const { setIsLocked } = useScrollLock()
     const product = useAppSelector(selectOneProduct)
 
     const zoomPicture = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -32,8 +35,18 @@ export const Product: FC = () => {
         const target = e.target as HTMLElement
         target.style.transformOrigin = `left`;
         target.style.transform = 'scale(1)';
-
     }
+    const addProductInCart = (product: IProduct) => {
+        dipsatch(addProductToCart(product))
+        setVisibleCartMenu(!visibleCartMenu)
+    }
+    const closeCartMenu = () => {
+        setVisibleCartMenu(false)
+        setIsLocked(false);
+    }
+    useEffect(() => {
+        dipsatch(fetchProduct(id as string))
+    }, []) // позволяет указывать функцию, которая будет запущена после того, как React обновит DOM(сайт)
     if (!product) {
         return (
             <NotFoundPage />
@@ -87,7 +100,7 @@ export const Product: FC = () => {
                                             {product.price} ₴
                                         </li>
                                     </ul>
-                                    <Button className={s.product__btn}>Купити</Button>
+                                    <Button onClick={() => {addProductInCart(product)}} className={s.product__btn}>Купити</Button>
                                 </div>
                                 <div className={`${s.product__wrap} ${s.delivery_product}`}>
                                     <div className={s.delivery_product__title}>
@@ -141,6 +154,7 @@ export const Product: FC = () => {
                     </div>
                 </div>
             </Container>
+            <CartModal closeCartMenu={closeCartMenu} visibleCartMenu={visibleCartMenu} />
         </div>
     )
 }

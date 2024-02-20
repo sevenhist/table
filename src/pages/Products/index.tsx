@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "app/hooks"
 import { Pagination } from "components/ui/Pagination"
 import { fetchOneCategory, fetchProduct, fetchProducts, selectOneCategory, selectOneProduct, selectProducts } from "features/user/shopSlice"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { usePagination } from "shared/hooks/usePagination"
 import s from './Products.module.scss';
@@ -11,6 +11,8 @@ import { Button } from "components/ui/Button"
 import { addProductToCart, selectCartProducts } from "features/user/cartSlice"
 import { Product } from "./Product"
 import { ROUTES } from "app/routes"
+import { CartModal } from "components/CartModal"
+import useScrollLock from "hooks/useScrollLock"
 
 export const Products = () => {
     const { categoryId } = useParams()
@@ -19,16 +21,26 @@ export const Products = () => {
         dispatch(fetchProducts(categoryId as string))
         dispatch(fetchOneCategory(categoryId as string))
     }, [])
+    const [visibleCartMenu, setVisibleCartMenu] = useState(false);
+    const { setIsLocked } = useScrollLock()
 
     const products = useAppSelector(selectProducts)
     const category = useAppSelector(selectOneCategory)
     const itemsPerPage = 32
     const result = usePagination({ array: products, itemsPerPage })
 
+    const changeVisibleCart = () => {
+        setVisibleCartMenu(!visibleCartMenu)
+    }
     const addProductInCart = (product: IProduct) => {
         dispatch(addProductToCart(product))
-    }  
-    
+        setVisibleCartMenu(!visibleCartMenu)
+    }
+    const closeCartMenu = () => {
+        setVisibleCartMenu(false)
+        setIsLocked(false);
+    }
+
     return (
         <div className={s.products}>
             <Container>
@@ -37,46 +49,48 @@ export const Products = () => {
                     {
                         result.slicedArray.map((product: IProduct) => {
                             return (
-                                <Link to={`${ROUTES.product}/${product.id}` + ROUTES.productInfo.information} className={s.products__list__item} key={product.id}>
-                                    <div className={s.products__list__actions}>
-                                        <div className={`${s.products__list__action} ${s.products__list__action__sale}`}>
-                                            Акція -50%
+                                <div className={s.productInfoContainer}>
+                                    <Link to={`${ROUTES.product}/${product.id}`} className={s.products__list__item} key={product.id}>
+                                        <div className={s.products__list__actions}>
+                                            <div className={`${s.products__list__action} ${s.products__list__action__sale}`}>
+                                                Акція -50%
+                                            </div>
+                                            <div className={`${s.products__list__action} ${s.products__list__action__top}`}>
+                                                Топ продажу
+                                            </div>
                                         </div>
-                                        <div className={`${s.products__list__action} ${s.products__list__action__top}`}>
-                                            Топ продажу
-                                        </div>
-                                    </div>
-                                    <a className={s.products__list__img} href={product.id}>
-                                        <img className={s.products__list__image} src={product.imgUrl} alt={product.title} />
-                                    </a>
-                                    <a className={s.products__list__title}>
-                                        <span>{product.title}</span>
-                                    </a>
-                                    <div className={s.products__list__info}>
-                                        <a>{product.description}</a>
-                                    </div>
-                                    <div className={s.products__list__box}>
-                                        <div className={`${s.products__list__rating} ${s.rating}`}>
-                                            <span className={`${s.rating__star} ${s.rating__star_active}`}></span>
-                                            <span className={`${s.rating__star} ${s.rating__star_active}`}></span>
-                                            <span className={`${s.rating__star} ${s.rating__star_active}`}></span>
-                                            <span className={`${s.rating__star} ${s.rating__star_active}`}></span>
-                                            <span className={s.rating__star}></span>
-                                        </div>
-                                        <a href="#" className={s.products__list__response}>
-                                            Написати відгук
+                                        <a className={s.products__list__img} href={product.id}>
+                                            <img className={s.products__list__image} src={product.imgUrl} alt={product.title} />
                                         </a>
-                                    </div>
-                                    <div className={s.products__list__prices}>
-                                        <div className={`${s.products__list__price} ${s.products__list__price__old}`}>
-                                            {parseFloat(product.price) * 0.9} ₴
+                                        <a className={s.products__list__title}>
+                                            <span>{product.title}</span>
+                                        </a>
+                                        <div className={s.products__list__info}>
+                                            <a>{product.description}</a>
                                         </div>
-                                        <div className={`${s.products__list__price} ${s.products__list__price__new}`}>
-                                            {product.price} ₴
+                                        <div className={s.products__list__box}>
+                                            <div className={`${s.products__list__rating} ${s.rating}`}>
+                                                <span className={`${s.rating__star} ${s.rating__star_active}`}></span>
+                                                <span className={`${s.rating__star} ${s.rating__star_active}`}></span>
+                                                <span className={`${s.rating__star} ${s.rating__star_active}`}></span>
+                                                <span className={`${s.rating__star} ${s.rating__star_active}`}></span>
+                                                <span className={s.rating__star}></span>
+                                            </div>
+                                            <a href="#" className={s.products__list__response}>
+                                                Написати відгук
+                                            </a>
                                         </div>
-                                    </div>
-                                    <Button onClick={() => {addProductInCart(product)}} className={s.products__list__btn}>Купити</Button>
-                                </Link>
+                                        <div className={s.products__list__prices}>
+                                            <div className={`${s.products__list__price} ${s.products__list__price__old}`}>
+                                                {parseFloat(product.price) * 0.9} ₴
+                                            </div>
+                                            <div className={`${s.products__list__price} ${s.products__list__price__new}`}>
+                                                {product.price} ₴
+                                            </div>
+                                        </div>
+                                    </Link>
+                                    <Button onClick={() => { addProductInCart(product) }} className={s.products__list__btn}>Купити</Button>
+                                </div>
                             )
                         })
                     }
@@ -85,6 +99,7 @@ export const Products = () => {
                     products.length > itemsPerPage && <Pagination handlePageClick={result.handlePageClick} pageCount={result.pageCount} />
                 }
             </Container>
+            <CartModal closeCartMenu={closeCartMenu} visibleCartMenu={visibleCartMenu} />
         </div>
     )
 }

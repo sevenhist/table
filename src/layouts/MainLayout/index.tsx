@@ -5,10 +5,11 @@ import { Outlet } from 'react-router-dom';
 interface MainLayoutProps { }
 
 export const MainLayout: FC<MainLayoutProps> = () => {
+
     return (
-        <>
-            <Header />
+        <div>
+            <Header/>
             <Outlet />
-        </>
+        </div>
     );
 };

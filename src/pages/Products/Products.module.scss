@@ -50,7 +50,7 @@
         &__item {
             display: flex;
             flex-direction: column;
-            min-height: toRem(452);
+            min-height: toRem(390);
             overflow: hidden;
             position: relative;
         }
@@ -167,9 +167,6 @@
                 color: #d30008;
             }
         }
-        &__btn {
-            margin-top: toRem(15);
-        }
     }
 }
 .rating {
@@ -184,4 +181,11 @@
     &__star_active::before {
         color: #ffa700;
     }
+}
+.productInfoContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: toRem(452);
+    overflow: hidden;
+    position: relative;
 }

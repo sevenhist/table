@@ -15,7 +15,6 @@
         display: inline-block;
         padding: toRem(12) 0;
         position: relative;
-        transition: all .5s ease;
         white-space: nowrap;
         &__active {
             color: $accent;
