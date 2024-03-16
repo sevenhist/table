@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { RegisterOptions, FieldValues, UseFormRegisterReturn, FieldErrors, FieldError } from 'react-hook-form';
 import s from "./FieldBox.module.scss";
-
+import { SelectMenu } from '../SelectMenu';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 
 export interface Field {
@@ -17,7 +18,7 @@ export interface Field {
     type: string;
     watch?: any;
     validation?: any;
-    value?: string
+    value?: string;
 }
 
 export interface FieldArray {
@@ -25,14 +26,35 @@ export interface FieldArray {
 }
 
 export const FieldBox: FC<Field> = (props) => {
-   return (
+
+    // const [showValueOfInput, setShowValueOfInput] = useState(false)
+    const [inputValue, setInputValue] = useState<string>(props.value ? props.value : '')
+
+    const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+        const newValue = event.target.value;
+        if (newValue !== inputValue) { // Überprüfen, ob sich der Wert geändert hat
+            if (newValue.startsWith('+43')) {
+                setInputValue(newValue);
+            } else if (newValue.startsWith('+')) {
+                setInputValue('+43');
+            } else {
+                setInputValue(newValue)
+            }
+        } 
+    }
+
+    // const onClickShowValue = () => {
+    //     setShowValueOfInput(true)
+    // }
+
+    return (
         <div className={`${props.className ? props.className : ''} ${s.fieldbox}`}>
             <p className={`${props.errors[props.name] ? s.red__title : s.normal__title}`}>{props.title}</p>
             <input
                 className={`${props.errors[props.name] && s.red__input} ${s.input}`}
-                {...(props.register(props.name, {
+                {
+                ...(props.register(props.name, {
                     required: props.required,
-                    value: props.value ? props.value : '',
                     pattern: {
                         value: props.patternValue,
                         message: props.message,
@@ -45,13 +67,16 @@ export const FieldBox: FC<Field> = (props) => {
                         }
                     }
                 }))}
+                value={inputValue}
+                onChange={onChangeInput}
                 type={props.type}
             />
-            {props.errors[props.name] && 
+            {props.errors[props.name] &&
                 <span className={s.error__field}>
-                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
                     {props.errors[props.name].message}
-                </span>}
+                </span>
+            }
         </div>
     )
 }

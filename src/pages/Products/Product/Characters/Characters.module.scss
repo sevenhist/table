@@ -37,5 +37,8 @@
     &__value {
         font-size: toRem(14);
         min-width: toRem(100);
+        @media (max-width: $mobile) {
+            text-align: right;
+        }
     }
 }

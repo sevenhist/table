@@ -2,6 +2,7 @@ export const ROUTES = {
     home: "/",
     catalog: "/catalog",
     product: "/product",
+    checkout: "/checkout",
     productInfo: {
         characteristics: "/characteristics",
         comments: "/comments",

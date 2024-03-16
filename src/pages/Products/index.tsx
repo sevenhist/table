@@ -12,7 +12,8 @@ import { addProductToCart, selectCartProducts } from "features/user/cartSlice"
 import { Product } from "./Product"
 import { ROUTES } from "app/routes"
 import { CartModal } from "components/CartModal"
-import useScrollLock from "hooks/useScrollLock"
+import { useLockedBody } from "hooks/useScrollLock"
+
 
 export const Products = () => {
     const { categoryId } = useParams()
@@ -22,7 +23,7 @@ export const Products = () => {
         dispatch(fetchOneCategory(categoryId as string))
     }, [])
     const [visibleCartMenu, setVisibleCartMenu] = useState(false);
-    const { setIsLocked } = useScrollLock()
+    const [locked, setLocked] = useLockedBody(false, 'root')
 
     const products = useAppSelector(selectProducts)
     const category = useAppSelector(selectOneCategory)
@@ -35,10 +36,11 @@ export const Products = () => {
     const addProductInCart = (product: IProduct) => {
         dispatch(addProductToCart(product))
         setVisibleCartMenu(!visibleCartMenu)
+        setLocked(!locked)
     }
     const closeCartMenu = () => {
         setVisibleCartMenu(false)
-        setIsLocked(false);
+        setLocked(false);
     }
 
     return (
@@ -49,8 +51,8 @@ export const Products = () => {
                     {
                         result.slicedArray.map((product: IProduct) => {
                             return (
-                                <div className={s.productInfoContainer}>
-                                    <Link to={`${ROUTES.product}/${product.id}`} className={s.products__list__item} key={product.id}>
+                                <div className={s.productInfoContainer} key={product.id}>
+                                    <Link to={`${ROUTES.product}/${product.id}`} className={s.products__list__item}>
                                         <div className={s.products__list__actions}>
                                             <div className={`${s.products__list__action} ${s.products__list__action__sale}`}>
                                                 Акція -50%
@@ -82,7 +84,7 @@ export const Products = () => {
                                         </div>
                                         <div className={s.products__list__prices}>
                                             <div className={`${s.products__list__price} ${s.products__list__price__old}`}>
-                                                {parseFloat(product.price) * 0.9} ₴
+                                                {parseInt(product.price) * 2} ₴
                                             </div>
                                             <div className={`${s.products__list__price} ${s.products__list__price__new}`}>
                                                 {product.price} ₴

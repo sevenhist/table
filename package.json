@@ -20,6 +20,8 @@
     "sass": "^1.69.5",
     "swiper": "^11.0.5",
     "typescript": "^4.9.5",
+    "usehooks-ts": "^2.15.0",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
@@ -27,7 +29,8 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.61",
     "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15"
+    "@types/react-dom": "^18.2.15",
+    "@types/uuid": "^9.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

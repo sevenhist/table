@@ -6,10 +6,12 @@ import { UserAvatar } from "components/UserAvatar";
 import { selectAuth } from "features/user/userSlice";
 import { ROUTES } from "app/routes";
 import { Logo } from "components/Logo";
-import {LinkButton } from "components/ui/Button";
+import { LinkButton } from "components/ui/Button";
 import { CartModal } from "components/CartModal";
 import { MobileMenu } from "components/MobileMenu";
-import useScrollLock from "hooks/useScrollLock";
+import { useLockedBody } from "hooks/useScrollLock";
+import { selectCartProducts, selectTotalCount } from "features/user/cartSlice";
+
 
 interface HeaderProps {
 
@@ -19,23 +21,10 @@ export const Header: FC<HeaderProps> = () => {
   const [visibleCartMenu, setVisibleCartMenu] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   const [isActiveMobileMenu, setIsActiveMobileMenu] = useState(false);
-  const { setIsLocked } = useScrollLock()
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsFixed(true);
-      } else if (window.scrollY === 0) {
-        setIsFixed(false);
-      }
-    };
+  const [locked, setLocked] = useLockedBody(false, 'root')
+  const totalCount = useAppSelector(selectTotalCount)
 
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const changeVisibleHeader = () => {
     setVisibleHeader(false);
@@ -45,19 +34,19 @@ export const Header: FC<HeaderProps> = () => {
   const menuOpen = () => {
     if (isActiveMobileMenu) {
       setIsActiveMobileMenu(false);
-      setIsLocked(false);
+      setLocked(!locked)
     } else {
       setIsActiveMobileMenu(true);
-      setIsLocked(true)
+      setLocked(true)
     }
   }
   const openCartMenu = () => {
     setVisibleCartMenu(true)
-    setIsLocked(true);
+    setLocked(true)
   }
   const closeCartMenu = () => {
     setVisibleCartMenu(false)
-    setIsLocked(false);
+    setLocked(!locked)
   }
   return (
     <>
@@ -76,9 +65,18 @@ export const Header: FC<HeaderProps> = () => {
             <button className={s.menu__search__button}><span>Знайти</span></button>
           </div>
           <div className={s.menu__right}>
-            <button onClick={openCartMenu} className={s.menu__right__button}>
-              <img src="https://plesh9.github.io/coffe-import/static/media/basket.58667f9ab914ba96bbda9ab2cdd754a3.svg" alt="Image" />
-            </button>
+            <div className={s.basket}>
+              <button onClick={openCartMenu} className={s.menu__right__button}>
+                <img src="https://plesh9.github.io/coffe-import/static/media/basket.58667f9ab914ba96bbda9ab2cdd754a3.svg" alt="Image" />
+              </button>
+              {
+                totalCount !== 0 ? 
+                <div className={s.basket__value}>
+                  <span>{totalCount}</span>
+                </div>
+                : ''
+              }
+            </div>
             {isAuth ? (
               <Link to={ROUTES.PRIVATE.cabinet} className={s.menu__right__profile}>
                 <UserAvatar />

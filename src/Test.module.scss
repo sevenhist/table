@@ -1,0 +1,14 @@
+@import "scss/constans";
+
+.inputs {
+    display: flex;
+    gap: toRem(12);
+    margin-left: toRem(40);
+    & input {
+        width: toRem(40);
+        height: toRem(40);
+        text-align: center;
+        border: toRem(1) solid #e9e9e9;
+        outline: none;
+    }
+}

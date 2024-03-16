@@ -10,16 +10,26 @@
         text-align: center;
         color: #161616;
         font-weight: 500;
-        @include adaptiveValue("font-size", 21, 17)
+        @include adaptiveValue("font-size", 21, 17);
+	    @media (max-width: $mobile) {
+			text-align: left
+		}
     }
     &__text {
         margin-top: toRem(20);
         text-align: center;
+        @media (max-width: $mobile) {
+			text-align: left
+		}
         &:not(:last-child) {
             margin-bottom: toRem(30);
+            @media (max-width: $mobile) {
+                margin-bottom: toRem(20);
+            }
         }
         & p {
             line-height: 1.5;
+            font-size: toRem(15);
             & strong {
                 font-weight: 500;
             }

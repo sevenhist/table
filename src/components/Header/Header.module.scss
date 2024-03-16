@@ -229,6 +229,27 @@
     align-items: center;
     flex-direction: column;
 }
+.basket {
+    position: relative;
+    &__value {
+        display: flex;
+        align-items: center;
+        background-color: $accent;
+        border-radius: 50%;
+        cursor: pointer;
+        height: toRem(20);
+        justify-content: center;
+        overflow: hidden;
+        position: absolute;
+        right: toRem(-5);
+        top: 0;
+        width: toRem(20);
+        & span {
+            color: $whiteColor;
+            font-size: toRem(11);
+        }
+    }
+}
 
 @media (max-width: $mobile) {
     .buttonCatalog {

@@ -19,11 +19,12 @@ export const NavigationProduct: FC = () => {
 
     //Javascript split method to get the name of the path in array
     const splitLocation = pathname.split("/");
+
+    const afterSecondElement = splitLocation.slice(3); // Ein neues Array ab dem dritten Element erstellen
+    const isAllEmpty = afterSecondElement.every(element => element === ""); // Überprüfen, ob alle Elemente leer sind
+
+
     const links = [
-        {
-            url: "",
-            text: "Усе про товар"
-        },
         {
             url: ROUTES.productInfo.characteristics,
             text: "Характеристики"
@@ -41,12 +42,17 @@ export const NavigationProduct: FC = () => {
         <Container>
             <nav className={`${s.product__nav} ${s.nav_product}`}>
                 <ul className={s.nav_product__list}>
+                    <li>
+                        <Link to={`${ROUTES.product}/${product?.id}`}
+                            className={`${isAllEmpty ? s.nav_product__btn__active : ''} ${s.nav_product__btn}`}
+                        >Усе про товар</Link>
+                    </li>
                     {
                         links.map((link) => {
                             return (
-                                <li>
-                                    <Link to={`${ROUTES.product}/${product?.id}${link.url}`} 
-                                    className={`${splitLocation.includes(link.url.slice(1)) ? s.nav_product__btn__active : '' } ${s.nav_product__btn}`}
+                                <li key={link.url}>
+                                    <Link to={`${ROUTES.product}/${product?.id}${link.url}`}
+                                        className={`${splitLocation.includes(link.url.slice(1)) ? s.nav_product__btn__active : ''} ${s.nav_product__btn}`}
                                     >{link.text}</Link>
                                 </li>
                             )

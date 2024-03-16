@@ -27,6 +27,9 @@ import { Comments } from 'pages/Products/Product/Comments';
 import { Delivery } from 'pages/Products/Product/Delivery';
 import { ProductLayout } from 'layouts/ProductLayout';
 import { SuperHeader } from 'components/MyRef';
+import { Checkout } from 'pages/Checkout';
+import { Inputs } from 'Test';
+import { Table } from 'components/Table';
 
 
 
@@ -57,15 +60,16 @@ function App() {
       checkAuth()
     }
   }, [])
-  
+  ///////////////////////////////////////////////////////////////
+  const [values, setValues] = useState(["", "", "", "", ""])
+
 
   if (isLoading) {
     return <PageLoader />
   }
-
   return (
     <div className="App">
-      <Routes>
+      {/* <Routes>
         <Route element={<MainLayout />}>
           <Route path={ROUTES.home} element={<Main />} />
           <Route path={ROUTES.catalog} element={<Catalog />} />
@@ -76,12 +80,12 @@ function App() {
             <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.comments} element={<Comments />} />
             <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.delivery} element={<Delivery />} />
           </Route>
-          <Route path='messages' element={<Messages />} />
         </Route>
         <Route element={<AuthLayout />}>
           <Route path={ROUTES.AUTH.login} element={<Login />} />
           <Route path={ROUTES.AUTH.registration} element={<Registration />} />
         </Route>
+        <Route path={ROUTES.checkout} element={<Checkout />}/>
 
         <Route element={<PrivateLayout />}>
           <Route path={ROUTES.PRIVATE.cabinet} element={<Cabinet />}>
@@ -94,7 +98,8 @@ function App() {
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      </Routes> */}
+      <Table />
     </div>
   );
 }

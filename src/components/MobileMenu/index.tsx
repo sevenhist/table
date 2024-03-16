@@ -8,7 +8,7 @@ import { UserAvatar } from 'components/UserAvatar'
 import { ROUTES } from 'app/routes'
 import { LinkButton } from 'components/ui/Button'
 import Transition from 'components/Transition'
-import useScrollLock from 'hooks/useScrollLock'
+import useOutsideClick from 'hooks/useClickOutside'
 
 interface MobileMenuProps {
     onCloseMobileMenu: () => void,
@@ -21,7 +21,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ onCloseMobileMenu, isActiveMob
     const isAuth = useAppSelector(selectAuth)
     const user = useAppSelector(selectUser)
     //split("@") create from string array with 2 parts['sevenhist', 'gmail.com']
-
+    const ref = useOutsideClick({ callback: onCloseMobileMenu })
     const list1 = [
         "Дропшипінг",
         "Доставка | Оплата",
@@ -41,18 +41,18 @@ export const MobileMenu: FC<MobileMenuProps> = ({ onCloseMobileMenu, isActiveMob
             exiting: s.exiting,
             exited: s.exited
         }} unMountOnExited={true}>
-        <div onClick={onCloseMobileMenu} className={`${s.modal}`}>
-            <aside className={`${s.navbar}`}>
+        <div className={`${s.modal}`}>
+            <aside className={`${s.navbar}`} ref={ref}>
                 <div className={s.navbar__wrapper}>
                     <div className={s.navbar__top}>
                         <button onClick={onCloseMobileMenu} className={s.navbar__close}>
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" stroke-width="2" d="M3,3 L21,21 M3,21 L21,3"></path></svg>
+                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="#000" strokeWidth="2" d="M3,3 L21,21 M3,21 L21,3"></path></svg>
                         </button>
                         <Logo onClick={onCloseMobileMenu} className={s.navbar__logo} withText={true} adaptiveText={false} />
                     </div>
                     <div className={s.navbar__body}>
                         {isAuth ? (
-                            <Link onClick={onCloseMobileMenu} to={ROUTES.PRIVATE.cabinet} className={s.navbar__profile}>
+                            <Link to={ROUTES.PRIVATE.cabinet} className={s.navbar__profile}>
                                 <UserAvatar />
                                 <p>{user?.email.split('@')[0]}</p>
                             </Link>
@@ -71,18 +71,18 @@ export const MobileMenu: FC<MobileMenuProps> = ({ onCloseMobileMenu, isActiveMob
                         </LinkButton>
                         <ul className={s.navbar__list}>
                             <li className={s.navbar__item}>
-                                <Link onClick={onCloseMobileMenu} to={ROUTES.home} className={s.navbar__link} >
+                                <Link  to={ROUTES.home} className={s.navbar__link} >
                                     Акції
                                 </Link>
                             </li>
-                            {list1.map((item) => <li className={s.navbar__item}>
+                            {list1.map((item) => <li key={item} className={s.navbar__item}>
                                 <a className={s.navbar__link} href='#'>
                                     {item}
                                 </a>
                             </li>)}
                         </ul>
                         <ul className={s.navbar__list}>
-                            {list2.map((item) => <li className={s.navbar__item}>
+                            {list2.map((item) => <li key={item} className={s.navbar__item}>
                                 <a className={s.navbar__link} href='#'>
                                     {item}
                                 </a>

@@ -9,17 +9,17 @@ import { Button } from 'components/ui/Button';
 import { Characters } from './Characters';
 import { ROUTES } from 'app/routes';
 import { NavigationProduct } from './NavigationProduct';
-import useScrollLock from 'hooks/useScrollLock';
 import { CartModal } from 'components/CartModal';
 import { IProduct } from 'models/IProduct';
 import { addProductToCart } from 'features/user/cartSlice';
+import { useLockedBody } from 'usehooks-ts';
 
 
 export const Product: FC = () => {
     const { id } = useParams()
     const dipsatch = useAppDispatch()
     const [visibleCartMenu, setVisibleCartMenu] = useState(false);
-    const { setIsLocked } = useScrollLock()
+    const [locked, setLocked] = useLockedBody(false, 'root')
     const product = useAppSelector(selectOneProduct)
 
     const zoomPicture = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -39,14 +39,15 @@ export const Product: FC = () => {
     const addProductInCart = (product: IProduct) => {
         dipsatch(addProductToCart(product))
         setVisibleCartMenu(!visibleCartMenu)
+        setLocked(!locked)
     }
     const closeCartMenu = () => {
         setVisibleCartMenu(false)
-        setIsLocked(false);
+        setLocked(false);
     }
     useEffect(() => {
         dipsatch(fetchProduct(id as string))
-    }, []) // позволяет указывать функцию, которая будет запущена после того, как React обновит DOM(сайт)
+    }, [id]) // позволяет указывать функцию, которая будет запущена после того, как React обновит DOM(сайт)
     if (!product) {
         return (
             <NotFoundPage />
@@ -125,14 +126,14 @@ export const Product: FC = () => {
                                 <div className={`${s.product__wrap} ${s.details_product}`}>
                                     <ul className={s.details_product__list}>
                                         <li className={s.details_product__item}>
-                                            <i><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 12h2v4h-2z"></path><path d="M20 7V5c0-1.103-.897-2-2-2H5C3.346 3 2 4.346 2 6v12c0 2.201 1.794 3 3 3h15c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zM5 5h13v2H5a1.001 1.001 0 0 1 0-2zm15 14H5.012C4.55 18.988 4 18.805 4 18V8.815c.314.113.647.185 1 .185h15v10z"></path></svg></i>
+                                            <i><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 12h2v4h-2z"></path><path d="M20 7V5c0-1.103-.897-2-2-2H5C3.346 3 2 4.346 2 6v12c0 2.201 1.794 3 3 3h15c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zM5 5h13v2H5a1.001 1.001 0 0 1 0-2zm15 14H5.012C4.55 18.988 4 18.805 4 18V8.815c.314.113.647.185 1 .185h15v10z"></path></svg></i>
                                             <p>
                                                 <span className={s.details_product__title}>Оплата.</span>
                                                 Оплата під час отримання товару, Оплата карткою у відділенні, Приватбанк, Google Pay, Apple Pay, Visa, Mastercard
                                             </p>
                                         </li>
                                         <li className={s.details_product__item}>
-                                            <i><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.995 6.9a.998.998 0 0 0-.548-.795l-8-4a1 1 0 0 0-.895 0l-8 4a1.002 1.002 0 0 0-.547.795c-.011.107-.961 10.767 8.589 15.014a.987.987 0 0 0 .812 0c9.55-4.247 8.6-14.906 8.589-15.014zM12 19.897C5.231 16.625 4.911 9.642 4.966 7.635L12 4.118l7.029 3.515c.037 1.989-.328 9.018-7.029 12.264z"></path><path d="m11 12.586-2.293-2.293-1.414 1.414L11 15.414l5.707-5.707-1.414-1.414z"></path></svg></i>
+                                            <i><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.995 6.9a.998.998 0 0 0-.548-.795l-8-4a1 1 0 0 0-.895 0l-8 4a1.002 1.002 0 0 0-.547.795c-.011.107-.961 10.767 8.589 15.014a.987.987 0 0 0 .812 0c9.55-4.247 8.6-14.906 8.589-15.014zM12 19.897C5.231 16.625 4.911 9.642 4.966 7.635L12 4.118l7.029 3.515c.037 1.989-.328 9.018-7.029 12.264z"></path><path d="m11 12.586-2.293-2.293-1.414 1.414L11 15.414l5.707-5.707-1.414-1.414z"></path></svg></i>
                                             <p>
                                                 <span className={s.details_product__title}>Гарантія.</span>
                                                 Законом про захист прав споживачів не передбачено повернення цього товару належної якості.

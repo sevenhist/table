@@ -25,7 +25,7 @@ export const Characters: FC = () => {
                     {
                         product?.params?.map((parameter) => {
                             return (
-                                <li className={s.characters_product__item}>
+                                <li className={s.characters_product__item} key={parameter.name}>
                                     <span className={s.characters_product__name}>{parameter.name}</span>
                                     <p className={s.characters_product__value}>{parameter.value}</p>
                                 </li>

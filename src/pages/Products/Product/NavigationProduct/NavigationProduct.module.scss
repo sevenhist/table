@@ -5,6 +5,12 @@
     overflow-x: auto;
     overflow-y: hidden;
     margin-top: toRem(10);
+    @media(max-width: $mobileSmall) {
+        overflow-x: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
     &__list {
         display: flex;
         align-items: center;
@@ -16,6 +22,9 @@
         padding: toRem(12) 0;
         position: relative;
         white-space: nowrap;
+        @media(max-width: $mobile) {
+            font-size: toRem(12);
+        }
         &__active {
             color: $accent;
             &.nav_product__btn::before {

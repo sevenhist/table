@@ -1,0 +1,89 @@
+@import "scss/constans";
+.main {
+    &__block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-width: toRem(226);
+        width: 100%;
+        max-height: toRem(130);
+        height: 100%;
+        border-radius: toRem(10);
+        background-color: #f8f8f8;
+        padding-bottom: toRem(50);
+        & p {
+            margin-top: toRem(15);
+            font-weight: 700;
+            font-size: toRem(22);
+            line-height: toRem(25.78);
+            color: #404d61;
+        }
+    }
+    &__block_active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-width: toRem(226);
+        width: 100%;
+        max-height: toRem(130);
+        height: 100%;
+        border-radius: toRem(10);
+        background-color: #5b6ad0;
+        padding-bottom: toRem(50);
+        & p {
+            margin-top: toRem(15);
+            font-weight: 700;
+            font-size: toRem(22);
+            line-height: toRem(25.78);
+            color: $whiteColor;
+        }
+    }
+    &__block_text_and_logo {
+        display: flex;
+        padding-top: toRem(20);
+        width: 100%;
+        padding-left: toRem(20);
+        align-items: center;
+        column-gap: toRem(5);
+        & img {
+            max-width: toRem(15);
+            width: 100%;
+            max-height: toRem(7.5);
+            height: 100%;
+            margin-top: toRem(14);
+        }
+        & p {
+            font-size: toRem(16);
+            font-weight: 400;
+            line-height: toRem(18.75);
+            color: #757d8a;
+        }
+    }
+    &__block_text_and_logo_active {
+        display: flex;
+        padding-top: toRem(20);
+        width: 100%;
+        padding-left: toRem(20);
+        align-items: center;
+        column-gap: toRem(5);
+        & img {
+            max-width: toRem(15);
+            width: 100%;
+            max-height: toRem(7.5);
+            height: 100%;
+            margin-top: toRem(14);
+        }
+        & p {
+            font-size: toRem(16);
+            font-weight: 400;
+            line-height: toRem(18.75);
+            color: $whiteColor;
+        }
+    }
+    &__price {
+        margin-right: auto;
+        margin-left: toRem(20);
+    }
+}
