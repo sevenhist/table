@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/table/static/css/main.1dbb65cb.css",
+    "main.js": "/table/static/js/main.af5914bf.js",
+    "static/js/787.e5aecf4c.chunk.js": "/table/static/js/787.e5aecf4c.chunk.js",
+    "static/media/profile.png": "/table/static/media/profile.831773f3ec12432f6bfd.png",
+    "static/media/settings.svg": "/table/static/media/settings.2d45dcc6bb5d52f1974e37bb65dacb53.svg",
+    "static/media/analythicks.svg": "/table/static/media/analythicks.1889f362acdbd70904eb78dccf2a120e.svg",
+    "static/media/deleteLogo.svg": "/table/static/media/deleteLogo.537528488ef499d1cb46113f0fc0e6fd.svg",
+    "static/media/crypto.svg": "/table/static/media/crypto.c1bd13ca765978d90bdc4ec715370792.svg",
+    "static/media/supportLogo.svg": "/table/static/media/supportLogo.9b85abc17f881ec805d0ed5d2916a7bc.svg",
+    "static/media/calendarlogo.svg": "/table/static/media/calendarlogo.f79a78f457a661fa42a401cf8eb82fe2.svg",
+    "static/media/messengerLogo.svg": "/table/static/media/messengerLogo.afa40c38d494d812378632127898e580.svg",
+    "index.html": "/table/index.html",
+    "static/media/outLogo.svg": "/table/static/media/outLogo.8a30fc0fd5609c0de627821556bbc8ac.svg",
+    "static/media/tablelogo.svg": "/table/static/media/tablelogo.b83b19232f7b3d72608898eb27c05af0.svg",
+    "static/media/blocks.svg": "/table/static/media/blocks.6356e6331f81a8e9218d52bb315ca2a2.svg",
+    "static/media/delete.svg": "/table/static/media/delete.870854c60f8c9f44fb630f150e034a3c.svg",
+    "static/media/correctLogo.svg": "/table/static/media/correctLogo.2b8db34b1a06eac4b5f1cbb8ad2180f4.svg",
+    "static/media/searchsecond.svg": "/table/static/media/searchsecond.bcb97580b57ca21e058f3196ac12b60b.svg",
+    "static/media/menu.svg": "/table/static/media/menu.6983c7aed43d3d19742739df9b614eec.svg",
+    "static/media/normalFocusIcon.svg": "/table/static/media/normalFocusIcon.fa93ae39b58de6b556cc5b57068195b1.svg",
+    "static/media/focusIcon.svg": "/table/static/media/focusIcon.aee0535420feed1c6417601c801fa389.svg",
+    "static/media/iconOnFocus.svg": "/table/static/media/iconOnFocus.21034f1a3b5e59ddd1bdc52d3ee76d04.svg",
+    "static/media/activeFocusIcon.svg": "/table/static/media/activeFocusIcon.8df54c7ec2944df51b9093a7c0b701be.svg",
+    "main.1dbb65cb.css.map": "/table/static/css/main.1dbb65cb.css.map",
+    "main.af5914bf.js.map": "/table/static/js/main.af5914bf.js.map",
+    "787.e5aecf4c.chunk.js.map": "/table/static/js/787.e5aecf4c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1dbb65cb.css",
+    "static/js/main.af5914bf.js"
+  ]
+}
