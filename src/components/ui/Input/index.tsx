@@ -1,8 +1,6 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { RegisterOptions, FieldValues, UseFormRegisterReturn, FieldErrors, FieldError } from 'react-hook-form';
 import s from "./FieldBox.module.scss";
-import { SelectMenu } from '../SelectMenu';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 
 export interface Field {
@@ -19,6 +17,9 @@ export interface Field {
     watch?: any;
     validation?: any;
     value?: string;
+    onChange?: (event: string) => void;
+    placeholder?: string;
+    reset?: any
 }
 
 export interface FieldArray {
@@ -28,20 +29,6 @@ export interface FieldArray {
 export const FieldBox: FC<Field> = (props) => {
 
     // const [showValueOfInput, setShowValueOfInput] = useState(false)
-    const [inputValue, setInputValue] = useState<string>(props.value ? props.value : '')
-
-    const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value;
-        if (newValue !== inputValue) { // Überprüfen, ob sich der Wert geändert hat
-            if (newValue.startsWith('+43')) {
-                setInputValue(newValue);
-            } else if (newValue.startsWith('+')) {
-                setInputValue('+43');
-            } else {
-                setInputValue(newValue)
-            }
-        } 
-    }
 
     // const onClickShowValue = () => {
     //     setShowValueOfInput(true)
@@ -52,8 +39,7 @@ export const FieldBox: FC<Field> = (props) => {
             <p className={`${props.errors[props.name] ? s.red__title : s.normal__title}`}>{props.title}</p>
             <input
                 className={`${props.errors[props.name] && s.red__input} ${s.input}`}
-                {
-                ...(props.register(props.name, {
+                {...(props.register(props.name, {
                     required: props.required,
                     pattern: {
                         value: props.patternValue,
@@ -67,9 +53,8 @@ export const FieldBox: FC<Field> = (props) => {
                         }
                     }
                 }))}
-                value={inputValue}
-                onChange={onChangeInput}
                 type={props.type}
+                placeholder={props.placeholder}
             />
             {props.errors[props.name] &&
                 <span className={s.error__field}>

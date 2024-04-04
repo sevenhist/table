@@ -1,0 +1,49 @@
+@import "scss/constans";
+
+.checkout {
+    &__top {
+        display: flex;
+        flex-direction: column;
+        @media (max-width: $mobile) {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        @media (max-width: $mobile) {
+            justify-content: center;
+        }
+    }
+    &__logo {
+        display: flex;
+        margin-left: toRem(-30);
+        @media (max-width: $mobile) {
+            cursor: pointer;
+            margin-left: 0;
+        }
+    }
+    &__text {
+        margin-left: toRem(-20);
+        font-weight: 700;
+        color: $accent;
+        font-size: toRem(16);
+        white-space: nowrap;
+        @media (max-width: $mobile) {
+            display: none;
+        }
+    }
+    &__title {
+        font-size: toRem(24);
+        @media (max-width: $mobile) {
+            @include adaptiveValue("font-size", 24, 16, $widthFrom: 767.98, $widthTo: 360);
+        }
+        font-weight: 800;
+        color: $blackTextColor;
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+    }
+}

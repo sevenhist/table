@@ -1,6 +1,5 @@
 import { FC } from "react"
 import { SideBar } from "./SideBar/SideBar"
-import { MainCabinet } from "./MainCabinet/MainCabinet"
 import s from './Content.module.scss';
 import { ROUTES } from "app/routes";
 import { Outlet } from "react-router-dom";

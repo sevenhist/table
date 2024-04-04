@@ -1,0 +1,20 @@
+@import "scss/constans";
+
+.title {
+    color: $blackTextColor;
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: toRem(20);
+    padding: 0 80px 15px 0;
+    position: relative;
+    @include adaptiveValue("font-size", 21, 17);
+    &::before {
+        background-color: $greyBorder;
+        bottom: 0;
+        content: "";
+        height: toRem(1);
+        left: 0;
+        position: absolute;
+        width: 100%;
+    }
+}

@@ -20,7 +20,7 @@ interface ButtonProps {
     className?: string,
     onClick?: () => void,
     variables?: "fitContent",
-    type?: string
+    type?: "button" | "submit" | "reset" | undefined
 }
 
 interface LinkButton {
@@ -32,9 +32,9 @@ interface LinkButton {
     onClick?: () => void
 }
 
-export const Button: FC<ButtonProps> = ({ children, className, onClick, variables }) => {
+export const Button: FC<ButtonProps> = ({ children, className, onClick, variables, type }) => {
     return (
-        <button onClick={onClick} className={`${className ? className : ''} ${s.button} ${variables ? s[variables] : ''}`}>{children}</button>
+        <button type={type ? type : "button"} onClick={onClick} className={`${className ? className : ''} ${s.button} ${variables ? s[variables] : ''}`}>{children}</button>
     )
 }
 

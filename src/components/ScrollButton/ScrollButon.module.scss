@@ -1,0 +1,28 @@
+@import "scss/constans";
+
+.scroll-btn {
+    display: flex;
+    align-items: center;
+    background-color: $whiteColor;
+    border-radius: 50%;
+    bottom: toRem(30);
+    justify-content: center;
+    position: fixed;
+    right: toRem(30);
+    transition: transform .3s ease;
+    opacity: .3s ease;
+    z-index: 45;
+    opacity: 0;
+    transform: translateY(toRem(10));
+    &__active {
+        opacity: 1;
+        transform: translate(0);
+    }
+    & svg {
+        border-radius: 50%;
+        box-shadow: 0 0 .3125rem $accent;
+        color: $accent;
+        font-size: toRem(40);
+        transition: all .3s ease;
+    }
+}

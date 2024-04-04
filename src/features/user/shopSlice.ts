@@ -53,6 +53,21 @@ export const fetchProducts = createAsyncThunk(
         }
     }
 )
+export const fetchAllProducts = createAsyncThunk(
+    'shop/fetchAllProducts',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await ShopService.getAllProducts();
+            return response.data;
+        } catch (err: unknown) {
+            if (err instanceof AxiosError) {
+                return rejectWithValue(err.response?.data?.message || 'error get products');
+            } else {
+                throw err;
+            }
+        }
+    }
+)
 
 export const fetchProduct = createAsyncThunk(
     'shop/fetchProduct',
@@ -100,6 +115,15 @@ const shopSlice = createSlice({
             state.products = action.payload
         })
         builder.addCase(fetchProducts.rejected, (state, action: PayloadAction<any>) => {
+            const errorMessage = action.payload
+            toast(errorMessage, {
+                type: "error"
+            })
+        })
+        builder.addCase(fetchAllProducts.fulfilled, (state, action: PayloadAction<Array<IProduct>>) => {
+            state.products = action.payload
+        })
+        builder.addCase(fetchAllProducts.rejected, (state, action: PayloadAction<any>) => {
             const errorMessage = action.payload
             toast(errorMessage, {
                 type: "error"

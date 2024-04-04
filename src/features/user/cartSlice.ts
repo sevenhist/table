@@ -116,6 +116,15 @@ const cartSlice = createSlice({
             state.totalPriceOfProducts -= product?.totalPriceOfProduct || 0
             state.totalCount -= product?.count || 0
             state.products = state.products.filter((product) => product.id !== action.payload) // вертає отфільтрований масів без свойства яке ми передали
+        },
+        resetProductsToEmpty: (state, action: PayloadAction<boolean>) => {
+            if(action.payload === true) {
+                state.products = []
+                state.totalCount = 0
+                state.totalPriceOfProducts = 0
+            } else {
+                return
+            }
         }
     }
 })
@@ -123,6 +132,6 @@ const cartSlice = createSlice({
 export const selectCartProducts = (state: RootState) => state.cart.products;
 export const selectCartTotalPriceOfProducts = (state: RootState) => state.cart.totalPriceOfProducts;
 export const selectTotalCount = (state: RootState) => state.cart.totalCount;
-export const { addProductToCart, incrementCount, discrementCount, changeCountOnInput, resetCountOnInput, deleteCartProduct } = cartSlice.actions;
+export const { addProductToCart, resetProductsToEmpty, incrementCount, discrementCount, changeCountOnInput, resetCountOnInput, deleteCartProduct } = cartSlice.actions;
 
 export default cartSlice.reducer

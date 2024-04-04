@@ -1,0 +1,10 @@
+@import "scss/constans";
+
+.theme-light {
+    /* Define styles for the light theme */
+}
+
+.theme-dark {
+    background-color: $blackTextColor;
+    color: $whiteColor;
+}

@@ -1,26 +1,29 @@
 @import "scss/constans";
 
-.header {
-    display: grid;
-    grid-template-columns: 1fr;
-    background-color: $whiteColor;
-    padding: toRem(10) 0;
-    top: toRem(-100);
-    left: 0;
-    width: 100%;
-    z-index: 159;
+@keyframes slideIn {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
 }
-
-.fixed {
-    display: grid;
-    grid-template-columns: 1fr;
+.header {
     background-color: $whiteColor;
     padding: toRem(10) 0;
     left: 0;
     width: 100%;
+    height: toRem(69);
+    z-index: 159;
+    transition: box-shadow .2s ease;
+}
+[data-class="header-active"] .header {
+    animation: slideIn 1s ease forwards;
+    left: 0;
+    top: 0;
     position: fixed;
-    transition: all 0.7s ease;
-    transform: translateY(toRem(100));
+    width: 100%;
+    box-shadow: 0 0 5px #ccc;
 }
 .header_not_visible {
     visibility: hidden;
@@ -45,6 +48,11 @@
         color: $whiteColor;
         font-size: toRem(15);
         cursor: pointer;
+    }
+    &__search {
+        &__input {
+            outline: none;
+        }
     }
 
     @media (max-width: $mobile) {
@@ -148,6 +156,34 @@
             &__profile {
                 display: none;
             }
+        }
+    }
+    &__darkButton {
+        padding: toRem(5) toRem(30);
+        background-color: $blackTextColor;
+        color: $whiteColor;
+        border-radius: toRem(5);
+        outline: toRem(1) solid $greyBorder;
+        font-size: toRem(14);
+        max-height: toRem(40);
+        max-width: toRem(100);
+        width: 100%;
+        &:hover {
+            background-color: #272626;
+        }
+    }
+    &__lightButton {
+        padding: toRem(5) toRem(30);
+        background-color: $whiteColor;
+        color: $blackTextColor;
+        outline: toRem(1) solid $greyBorder;
+        border-radius: toRem(5);
+        font-size: toRem(14);
+        max-height: toRem(40);
+        max-width: toRem(100);
+        width: 100%;
+        &:hover {
+            background-color: $greyVcolor;
         }
     }
 }

@@ -10,7 +10,9 @@ import { ROUTES } from "app/routes";
 
 export type Inputs = {
     Email: string,
-    Password: string
+    Password: string,
+    Name: string,
+    Last_name: string
 }
 export const RegistrationForm = () => {
     const {
@@ -26,7 +28,9 @@ export const RegistrationForm = () => {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const email = data.Email;
         const password = data.Password;
-        dispatch(fetchRegistration({ email, password }))
+        const first_name = data.Name;
+        const last_name = data.Last_name;
+        dispatch(fetchRegistration({ email, password, first_name, last_name }))
             .then(() => { navigate('/cabinet') })
     }
     const fields: Array<Field> = [

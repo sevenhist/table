@@ -1,56 +1,30 @@
-import { ROUTES } from "app/routes";
-import { FC } from "react";
-import { Route, Routes } from "react-router-dom";
+import { FC, useState } from "react";
 import s from './UserComponent.module.scss';
-import { FieldBox } from "components/ui/Input";
-import { Field, useForm } from "react-hook-form";
-import { useAppSelector } from "app/hooks";
+import { PasswordsComponent } from "./PasswordsComponent";
+import { InformationComponent } from "./InformationComponent";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 import { selectUser } from "features/user/userSlice";
 
-export type InputsCabinet = {
-    Email: string,
-}
 
 export const UserComponent: FC = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<InputsCabinet>({
-        mode: 'all'
-    })
-    const onSubmit = (data: InputsCabinet) => {
-        const email = data.Email;
-    }
+
+    const [activePasswordButton, setActivePasswordButton] = useState(false)
     const user = useAppSelector(selectUser)
-    const fields = [
-        {
-            name: 'Email',
-            required: "Поле обов'язкове до заповнення!",
-            patternValue: /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-            message: 'Будь ласка введіть дійсну адресу електронної пошти!',
-            title: 'Емейл',
-            type: 'text',
-            value: user?.email
-        }
-    ];
     return (
         <div className={s.settings}>
-            <h1 className={s.settings__title}>Персональна інформація</h1>
-            {fields.map((field) => (
-                <FieldBox 
-                className={s.settings__input}
-                title={field.title}
-                register={register}
-                name={field.name}
-                required={field.required}
-                patternValue={field.patternValue}
-                message={field.message}
-                errors={errors}
-                type={field.type}  
-                value={field.value}
-                />
-            ))
+            { 
+                !user?.isActivated &&
+                <div className={s.settings__warning}>
+                    <i><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg></i>
+                    <p>Необхідно здійснити <a href="http://mail.google.com/mail/." target="_blank" rel="noreferrer">активацію</a> облікового запису.</p>
+                </div>
+            }
+            {
+                activePasswordButton
+                    ?
+                    <PasswordsComponent setActivePasswordButton={setActivePasswordButton} />
+                    :
+                    <InformationComponent setActivePasswordButton={setActivePasswordButton} />
             }
         </div>
     )

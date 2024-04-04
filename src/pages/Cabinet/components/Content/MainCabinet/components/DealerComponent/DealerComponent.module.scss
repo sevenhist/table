@@ -1,3 +1,5 @@
+@import "scss/constans";
+
 .dealership {
     &__container {
         box-sizing: border-box;
@@ -10,12 +12,30 @@
         font-size: toRem(17);
         font-weight: 500;
     }
+    &__list {
+        display: flex;
+        flex-direction: column;
+        margin-top: toRem(15);
+        row-gap: toRem(10);
+    }
 }
 .cabinet__title {
     font-size: 1.313rem;
     display: block;
     margin-bottom: toRem(30);
     text-align: center;
+    &:not(:first-child) {
+        margin-top: toRem(30);
+    }
+}
+.cabinet__text {
+    & p {
+        line-height: 1.5;
+        & em {
+            color: #2d2d2d;
+            font-style: italic;
+        }
+    }
 }
 .title__secondary {
     padding: 0;
@@ -25,6 +45,24 @@
     color: #161616;
     font-weight: 700;
     margin-bottom: 1.25rem;
-    padding: 0 80px 15px 0;
     position: relative;
+}
+.unactivated {
+    display: flex;
+    align-items: center;
+    line-height: toRem(20);
+    color: #856404;
+    & svg {
+        color: #f1b813;
+        height: toRem(20);
+        width: toRem(20);
+        margin-right: toRem(5);
+    }
+    & a {
+        margin-left: toRem(8);
+        color: inherit;
+        margin-right: toRem(8);
+        text-decoration: underline;
+        transition: all .2s ease;
+    }
 }

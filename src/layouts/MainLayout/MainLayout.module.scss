@@ -1,0 +1,10 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    transition: all .3s ease;
+    [data-class="header-active"] & {
+        top: 69px;
+        position: sticky;
+    }
+}

@@ -6,4 +6,16 @@
         background-color: $accent;
         color: $whiteColor;
     }
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    [data-class="header-active"] & {
+        top: 69px;
+        position: sticky;
+    }
 }

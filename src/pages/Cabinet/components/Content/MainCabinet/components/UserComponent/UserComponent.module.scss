@@ -3,12 +3,20 @@
 .settings {
     display: flex;
     flex-direction: column;
-    &__title {
-        display: block;
-        margin-bottom: toRem(30);
-        text-align: center;
-        font-weight: 700;
-        font-size: toRem(21);
+    &__inputValue {
+        border: toRem(1) solid #e9e9e9;
+        outline: none;
+        border-radius: toRem(3);
+        height: toRem(40);
+        padding: 0 toRem(12);
+        &:focus {
+            border-color: $accent;
+        }
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     }
     &__field {
         display: grid;
@@ -17,10 +25,26 @@
         align-items: center;
         row-gap: toRem(5);
     }
-    &__input {
+    &__warning {
+        display: flex;
         align-items: center;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: toRem(20);
+        background-color: #fff3cd;
+        border: toRem(1) solid #f1b813;
+        color: #856404;
+        column-gap: toRem(5);
+        margin-bottom: toRem(30);
+        padding: toRem(10);
+        & i {
+            & svg {
+                color: #f1b813;
+                height: toRem(20);
+                width: toRem(20);
+            }
+        }
+        & p {
+            & a {
+                text-decoration: underline;
+            }
+        }
     }
 }

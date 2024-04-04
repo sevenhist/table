@@ -1,0 +1,52 @@
+@import "scss/constans";
+
+.settings { 
+    &__title {
+        display: block;
+        margin-bottom: toRem(30);
+        text-align: center;
+        font-weight: 700;
+        font-size: toRem(21);
+    }
+    &__inputs {
+        display: flex;
+        flex-direction: column;
+        row-gap: toRem(20);
+        &__block {
+            display: grid;
+            grid-column-gap: toRem(20);
+            align-items: center;
+            column-gap: toRem(20);
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    &__input {
+        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: toRem(10);
+    }
+    &__change {
+        margin-top: toRem(30);
+        text-align: right;
+    }
+    &__submit {
+        margin-top: toRem(30);
+        text-align: right;
+    }
+    &__save {
+        border-radius: toRem(3);
+        min-width: toRem(150);
+        width: auto;
+        background-color: $accent;
+        color: #fff;
+        display: inline-block;
+        padding: toRem(13);
+        text-align: center;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        &:hover {
+            background-color: $accentHover;
+        }
+    }
+}

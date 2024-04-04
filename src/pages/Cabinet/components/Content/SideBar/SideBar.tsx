@@ -37,9 +37,10 @@ export const SideBar: FC = () => {
         dispatch(fetchLogout())
             .then(() => { navigate(ROUTES.home) })
     }
+    
     const parts_of_menu: Array<Part> = [
         {
-            title: user?.email.replace(/@gmail.com/g, ''),
+            title: user?.first_name,
             logo: <UserAvatar />,
             route: ROUTES.PRIVATE.personalInformation,
             className: s.profile__border
@@ -52,7 +53,7 @@ export const SideBar: FC = () => {
         {
             title: 'Дилерство',
             logo: <LogoOfDilers />,
-            route: ROUTES.PRIVATE.dealership
+            route: ROUTES.PRIVATE.dealership,
         },
         {
             title: 'Умови роботи',
@@ -65,7 +66,6 @@ export const SideBar: FC = () => {
             route: ROUTES.PRIVATE.applications
         },
     ];
-
     return (
         <div className={s.sidebar}>
             <ul className={s.sidebar__list}>

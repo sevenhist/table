@@ -1,0 +1,57 @@
+@import "scss/constans";
+.form {
+    display: flex;
+    flex-direction: column;
+}
+.form__checkout {
+    &__fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: toRem(10);
+        grid-row-gap: toRem(25);
+        column-gap: toRem(10);
+        row-gap: toRem(25);
+        margin-bottom: toRem(20);
+        @media (max-width: $mobileSmall) {
+            grid-template-columns: 1fr;
+        }
+    }
+    & .field {
+        display: flex;
+        flex-direction: column;
+        row-gap: toRem(5);
+        &__input {
+            border: toRem(1) solid #e9e9e9;
+            border-radius: toRem(3);
+            height: toRem(40);
+            background-color: transparent;
+            border-radius: inherit;
+            outline: none;
+            padding: 0 toRem(12);
+            &:focus {
+                border-color: $accent;
+            }
+            &__invalid {
+                border-color: $red;
+            }
+        }
+    }
+    &__title {
+        border-top: toRem(1) solid #e9e9e9;
+        margin-top: toRem(30);
+        padding-top: toRem(30);
+        font-size: toRem(21);
+        font-weight: 700;
+        color: $blackTextColor;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 0;
+        padding-bottom: toRem(30);
+        &:not(:first-child) {
+            border-top: toRem(1) solid #e9e9e9;
+            margin-top: toRem(30);
+            padding-top: toRem(30);
+        }
+    }
+}

@@ -9,9 +9,16 @@
         flex: 1 1 auto;
         grid-template-columns: toRem(250) 1fr;
         position: relative;
+        @media(max-width: $tablet) {
+            grid-template-columns: 1fr;
+            row-gap: toRem(30);
+        }
     }
     &__content {
         padding-left: toRem(30);
         min-height: toRem(500);
+        @media(max-width: $tablet) {
+            padding: 0 toRem(10);
+        }
     }
 }

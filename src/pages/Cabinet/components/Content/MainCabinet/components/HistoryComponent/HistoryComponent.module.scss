@@ -1,0 +1,96 @@
+@import "scss/constans";
+
+.history-orders {
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: toRem(50);
+        grid-row-gap: toRem(30);
+        row-gap: toRem(30);
+        column-gap: toRem(50);
+        &:not(:first-child) {
+            margin-top: toRem(50);
+        }
+        @media(max-width: $mobile) {
+            grid-template-columns: 1fr;
+        }
+    }
+    &__header {
+        font-size: toRem(17);
+        font-weight: 500;
+        background-color: hsla(0,0%,91%,.451);
+        border-bottom: toRem(1) solid $accent;
+        color: #333;
+        padding: toRem(10);
+        position: relative;
+    }
+    &__title {
+        &:not(:first-child) {
+            margin-top: toRem(30);
+            font-size: toRem(17);
+            font-weight: 500;
+        }
+    }
+    &__list {
+        display: flex;
+        flex-direction: column;
+        margin-top: toRem(10);
+        row-gap: toRem(10);
+        & li {
+            font-size: toRem(15);
+            margin-left: toRem(5);
+            padding-left: toRem(10);
+            position: relative;
+            &::before {
+                background-color: $blackColor;
+                border-radius: 50%;
+                content: "";
+                height: toRem(4);
+                left: 0;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: toRem(4);
+            }
+        }
+    }
+    &__products {
+        display: flex;
+        flex-direction: column;
+        margin-top: toRem(20);
+        row-gap: toRem(15);
+    }
+    &__box {
+        display: flex;
+        align-items: center;
+        column-gap: toRem(10);
+        & a {
+            max-width: toRem(250);
+            display: inline-block;
+        }
+        & img {
+            height: toRem(50);
+            width: toRem(50);
+        }
+    }
+    &__footer {
+        display: flex;
+        border-top: toRem(1) solid hsla(0,0%,91%,.678);
+        flex-direction: column;
+        margin-top: toRem(20);
+        padding-top: toRem(20);
+        row-gap: toRem(10);
+        & p {
+            font-size: toRem(17);
+            font-weight: 500;
+        }
+    }
+}
+.cabinet__title {
+    display: block;
+    margin-bottom: toRem(30);
+    text-align: center;
+    font-weight: 700;
+    color: $blackTextColor;
+    @include adaptiveValue("font-size", 21, 17)
+}

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import s from "./Header.module.scss";
-import { FC, useEffect, useState } from "react";
-import { useAppSelector } from "app/hooks";
+import { FC, useEffect, useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 import { UserAvatar } from "components/UserAvatar";
 import { selectAuth } from "features/user/userSlice";
 import { ROUTES } from "app/routes";
@@ -11,6 +11,8 @@ import { CartModal } from "components/CartModal";
 import { MobileMenu } from "components/MobileMenu";
 import { useLockedBody } from "hooks/useScrollLock";
 import { selectCartProducts, selectTotalCount } from "features/user/cartSlice";
+import { useTheme } from "components/Theme";
+import cart from "../../img/cart.svg"
 
 
 interface HeaderProps {
@@ -19,12 +21,13 @@ interface HeaderProps {
 export const Header: FC<HeaderProps> = () => {
   const [visibleHeader, setVisibleHeader] = useState(true);
   const [visibleCartMenu, setVisibleCartMenu] = useState(false);
-  const [isFixed, setIsFixed] = useState(false);
+  const [headerActive, setIsHeaderActive] = useState(false);
   const [isActiveMobileMenu, setIsActiveMobileMenu] = useState(false);
+  const [themeButton, setThemeButton] = useState(false)
 
   const [locked, setLocked] = useLockedBody(false, 'root')
   const totalCount = useAppSelector(selectTotalCount)
-
+  const dispatch = useAppDispatch()
 
   const changeVisibleHeader = () => {
     setVisibleHeader(false);
@@ -48,9 +51,27 @@ export const Header: FC<HeaderProps> = () => {
     setVisibleCartMenu(false)
     setLocked(!locked)
   }
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 69) {
+        setIsHeaderActive(true);
+        document.documentElement.dataset.class = "header-active";
+      } else if(window.scrollY === 0) {
+        setIsHeaderActive(false);
+        document.documentElement.dataset.class = "";
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <header className={`${isFixed && s.fixed} ${visibleHeader ? s.header : s.header_not_visible}`}>
+      <header className={`${headerActive ? s.header__fixed : ""} ${visibleHeader ? s.header : s.header_not_visible}`}>
         <div className={`${s.menu}`}>
           <button onClick={menuOpen} type="button" className={`${s['icon-menu']} ${isActiveMobileMenu ? s['menu-open'] : ''}`}><span></span></button>
           <Logo className={s.icon__logo} adaptiveText={true} />
@@ -67,14 +88,14 @@ export const Header: FC<HeaderProps> = () => {
           <div className={s.menu__right}>
             <div className={s.basket}>
               <button onClick={openCartMenu} className={s.menu__right__button}>
-                <img src="https://plesh9.github.io/coffe-import/static/media/basket.58667f9ab914ba96bbda9ab2cdd754a3.svg" alt="Image" />
+                <img src={cart} alt="Image" />
               </button>
               {
-                totalCount !== 0 ? 
-                <div className={s.basket__value}>
-                  <span>{totalCount}</span>
-                </div>
-                : ''
+                totalCount !== 0 ?
+                  <div className={s.basket__value}>
+                    <span>{totalCount}</span>
+                  </div>
+                  : ''
               }
             </div>
             {isAuth ? (

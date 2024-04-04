@@ -7,7 +7,7 @@ import { NotFoundPage } from 'pages/NotFoundPage';
 import { Login } from 'pages/Login';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { setAuth, setUser } from 'features/user/userSlice';
 import AuthService from 'api/services/AuthService';
 import { Registration } from 'pages/Registration/Registration';
@@ -20,27 +20,23 @@ import { ROUTES } from 'app/routes';
 import { UserComponent } from 'pages/Cabinet/components/Content/MainCabinet/components/UserComponent/UserComponents';
 import { DealerComponent } from 'pages/Cabinet/components/Content/MainCabinet/components/DealerComponent/DealerComponent';
 import { Products } from 'pages/Products';
-import { Messages } from 'pages/Messages';
 import { Product } from 'pages/Products/Product';
 import { Characters } from 'pages/Products/Product/Characters';
 import { Comments } from 'pages/Products/Product/Comments';
 import { Delivery } from 'pages/Products/Product/Delivery';
 import { ProductLayout } from 'layouts/ProductLayout';
-import { SuperHeader } from 'components/MyRef';
 import { Checkout } from 'pages/Checkout';
-import { Inputs } from 'Test';
-import { Table } from 'components/Table';
+import { ThemeProvider } from 'components/Theme';
+import { History } from 'pages/Cabinet/components/Content/MainCabinet/components/HistoryComponent';
 
 
 
 function App() {
   const dispatch = useAppDispatch();
-  const [isLoading, setIsLoading] = useState(false)
-
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     if (localStorage.getItem('token')) {
       setIsLoading(true)
-
       const checkAuth = async () => {
         try {
           const response = await AuthService.auth()
@@ -50,6 +46,7 @@ function App() {
           toast("Authorized", {
             type: "success"
           });
+          console.log(response.data.user, "USER INFO")
         } catch (e: any) {
           console.log(e.response?.data?.message)
         } finally {
@@ -61,45 +58,44 @@ function App() {
     }
   }, [])
   ///////////////////////////////////////////////////////////////
-  const [values, setValues] = useState(["", "", "", "", ""])
-
 
   if (isLoading) {
     return <PageLoader />
   }
   return (
     <div className="App">
-      {/* <Routes>
-        <Route element={<MainLayout />}>
-          <Route path={ROUTES.home} element={<Main />} />
-          <Route path={ROUTES.catalog} element={<Catalog />} />
-          <Route path={`${ROUTES.catalog}/:categoryId`} element={<Products />} />
-          <Route element={<ProductLayout />}>
-            <Route path={`${ROUTES.product}/:id`} element={<Product />} />
-            <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.characteristics} element={<Characters />} />
-            <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.comments} element={<Comments />} />
-            <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.delivery} element={<Delivery />} />
+      <ThemeProvider>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path={ROUTES.home} element={<Main />} />
+            <Route path={ROUTES.catalog} element={<Catalog />} />
+            <Route path={`${ROUTES.catalog}/:categoryId`} element={<Products />} />
+            <Route element={<ProductLayout />}>
+              <Route path={`${ROUTES.product}/:id`} element={<Product />} />
+              <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.characteristics} element={<Characters />} />
+              <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.comments} element={<Comments />} />
+              <Route path={`${ROUTES.product}/:id` + ROUTES.productInfo.delivery} element={<Delivery />} />
+            </Route>
           </Route>
-        </Route>
-        <Route element={<AuthLayout />}>
-          <Route path={ROUTES.AUTH.login} element={<Login />} />
-          <Route path={ROUTES.AUTH.registration} element={<Registration />} />
-        </Route>
-        <Route path={ROUTES.checkout} element={<Checkout />}/>
+          <Route element={<AuthLayout />}>
+            <Route path={ROUTES.AUTH.login} element={<Login />} />
+            <Route path={ROUTES.AUTH.registration} element={<Registration />} />
+          </Route>
+          <Route path={ROUTES.checkout} element={<Checkout />} />
 
-        <Route element={<PrivateLayout />}>
-          <Route path={ROUTES.PRIVATE.cabinet} element={<Cabinet />}>
-            <Route index element={<Navigate to={ROUTES.PRIVATE.personalInformation} />} />
-            <Route path={ROUTES.PRIVATE.personalInformation} element={<UserComponent />} />
-            <Route path={ROUTES.PRIVATE.orders} element={<p>content 1</p>} />
-            <Route path={ROUTES.PRIVATE.dealership} element={<DealerComponent />} />
-            <Route path={ROUTES.PRIVATE.conditions} element={<p>content 3</p>} />
-            <Route path={ROUTES.PRIVATE.applications} element={<p>content 4</p>} />
+          <Route element={<PrivateLayout />}>
+            <Route path={ROUTES.PRIVATE.cabinet} element={<Cabinet />}>
+              <Route index element={<Navigate to={ROUTES.PRIVATE.personalInformation} />} />
+              <Route path={ROUTES.PRIVATE.personalInformation} element={<UserComponent />} />
+              <Route path={ROUTES.PRIVATE.orders} element={<History />} />
+              <Route path={ROUTES.PRIVATE.dealership} element={<DealerComponent />} />
+              <Route path={ROUTES.PRIVATE.conditions} element={<p>content 3</p>} />
+              <Route path={ROUTES.PRIVATE.applications} element={<p>content 4</p>} />
+            </Route>
           </Route>
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes> */}
-      <Table />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </ThemeProvider>
     </div>
   );
 }

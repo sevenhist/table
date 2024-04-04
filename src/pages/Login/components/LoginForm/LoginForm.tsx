@@ -28,7 +28,6 @@ export const LoginForm = () => {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const email = data.Email;
         const password = data.Password;
-        const myName = data.Name
         dispatch(fetchLogin({ email, password }))
             .then(() => { navigate('/cabinet') })
     }

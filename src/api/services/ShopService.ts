@@ -13,6 +13,9 @@ export default class ShopService {
     static async getProducts(categoryId: string) {
         return axios.get<Array<IProduct>>(`${API_URL}/products?categoryId=${categoryId}`)
     }
+    static async getAllProducts() {
+        return axios.get<Array<IProduct>>(`${API_URL}/products`)
+    }
     static async getOneProduct(id: string) {
         return axios.get<IProduct>(`${API_URL}/products/${id}`)
     }

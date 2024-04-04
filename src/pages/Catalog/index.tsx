@@ -8,6 +8,7 @@ import { ROUTES } from 'app/routes';
 import ReactPaginate from 'react-paginate';
 import { Pagination, PaginationSelectedItem } from 'components/ui/Pagination';
 import { usePagination } from 'shared/hooks/usePagination';
+import { CatalogCard } from 'components/CatalogCard';
 
 
 interface Catalog { }
@@ -21,6 +22,7 @@ export const Catalog: FC<Catalog> = () => {
     }, []) // якщо другий параметр в useEffect це пусти масів [], то функція перед пустим масівом буде відображатися лише один раз 
 
     const result = usePagination({array: categories, itemsPerPage: 32})
+    const filteredCategories = result.slicedArray
 
     return (
         <div className={s.categories}>
@@ -28,20 +30,7 @@ export const Catalog: FC<Catalog> = () => {
                 <div className={`${s.productList__title} ${s.title}`}>
                     Кавове обладнання
                 </div>
-                <ul className={s.category_list}>
-                    {result.slicedArray.map(category => {
-                        return (
-                            <li key={category.id} className={s.items__main__item}>
-                                <Link to={`${ROUTES.catalog}/${category.id}`} className={s.items__main__link}>
-                                    <div className={s.items__main__link__img}>
-                                        <img src={category.imgUrl} alt={category.title} />
-                                    </div>
-                                    <p className={s.items__main__link__text}>{category.title}</p>
-                                </Link>
-                            </li>
-                        )
-                    })}
-                </ul>
+                <CatalogCard array={filteredCategories} classname={s.category_list}/>
                 <Pagination handlePageClick={result.handlePageClick} pageCount={result.pageCount} />
             </Container>
         </div>

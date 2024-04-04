@@ -1,19 +1,38 @@
 @import "scss/constans";
 
 .avatar {
+    &_name {
+        align-items: center;
+        background: linear-gradient(77.41deg, #60c403 7.87%, #6bd804 102.55%);
+        border-radius: 50%;
+        color: #fff;
+        display: flex;
+        font-family: Arial, Helvetica, Rubik, sans-serif;
+        font-size: toRem(23);
+        font-style: normal;
+        font-weight: 400;
+        height: toRem(35);
+        justify-content: center;
+        line-height: toRem(35);
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+        width: toRem(35);
+    }
+}
+.warning {
+    left: auto;
+    right: toRem(-10);
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: toRem(40);
-    height: toRem(40);
-    border-radius: 50%;
-    background: linear-gradient(77.41deg, $accent 7.87%, $accentHover 102.55%);
-
-    &_name {
-        font-size: toRem(20);
-        line-height: 125%; /* 20/16 */
-        text-transform: uppercase;
-        color: $whiteColor;
+    column-gap: toRem(5);
+    font-size: toRem(12);
+    position: absolute;
+    top: toRem(-5);
+    & svg {
+        color: #f1b813;
+        height: toRem(20);
+        width: toRem(20);
     }
 }

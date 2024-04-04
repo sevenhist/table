@@ -11,7 +11,7 @@ export const store = configureStore({
     user: userSlice,
     shop: shopSlice,
     cart: cartSlice,
-    table: tableSlice
+    table: tableSlice,
   },
 })
 

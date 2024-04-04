@@ -3,36 +3,99 @@ import 'swiper/css';
 import swipeimg from '../../img/coffeemaschine.webp';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import { LinkButton, RedButton, RedLinkButton } from 'components/ui/Button';
+import { Button, LinkButton, RedButton, RedLinkButton } from 'components/ui/Button';
 import { Container } from 'components/ui/Container';
 import { ROUTES } from 'app/routes';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { fetchAllProducts, fetchCategories, fetchProducts, selectCategories, selectProducts } from 'features/user/shopSlice';
+import { Link } from 'react-router-dom';
+import { Title } from 'components/ui/Title';
+import secondCoffeMachine from "../../img/secondcoffeeimage.jpeg";
+import thirdCoffeMachine from "../../img/thirdCoffeeMachine.webp";
+import { IProduct } from 'models/IProduct';
+import { addProductToCart } from 'features/user/cartSlice';
+import { useLockedBody } from 'hooks/useScrollLock';
+import { CartModal } from 'components/CartModal';
+import { Product } from 'pages/Products/Product';
+import { Products } from 'pages/Products';
+import { ProductCard } from 'components/ProductCard';
+import { CatalogCard } from 'components/CatalogCard';
+import coffeemachinewithcoffies from "../../img/coffeemachinewithcoffees.jpeg"
 
 
 export const Main = () => {
+    const dispatch = useAppDispatch()
 
+    useEffect(() => {
+        dispatch(fetchCategories())
+        dispatch(fetchAllProducts())
+    }, [])
+    const categories = useAppSelector(selectCategories);
+    const products = useAppSelector(selectProducts)
+
+    const filteredCategories = categories.slice(0, 7);
+    const filteredProducts = products.slice(0, 8);
     const slides = [
         {
-            image: swipeimg,
+            image: coffeemachinewithcoffies,
             title: 'Кофемашина',
             action: 'Акція -35%',
             sale: 'Встигни купити дешевше',
             buttonText: 'Дізнатись детальніше'
         },
         {
-            image: swipeimg,
-            title: 'Кофемашина 1',
+            image: secondCoffeMachine,
+            title: 'Кофемашина',
             action: 'Акція -55%',
             sale: 'Встигни купити дешевше',
             buttonText: 'Дізнатись детальніше'
         },
         {
-            image: swipeimg,
-            title: 'Кофемашина 2',
+            image: thirdCoffeMachine,
+            title: 'Кофемашина',
             action: 'Акція -75%',
             sale: 'Встигни купити дешевше',
             buttonText: 'Дізнатись детальніше'
         }
+    ]
+
+    const cards = [
+        {
+            id: 1,
+            image: "https://st5.depositphotos.com/62628780/65482/i/600/depositphotos_654825172-stock-photo-isolated-woman-call-center-and.jpg",
+            title: "В мене є питання"
+        },
+        {
+            id: 2,
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ6fCRhm1-g2ggWVzkn0xI-s8fAz850teipg&usqp=CAU",
+            title: "Як користуватися?"
+        },
+        {
+            id: 3,
+            image: "https://st5.depositphotos.com/62628780/65482/i/600/depositphotos_654825172-stock-photo-isolated-woman-call-center-and.jpg",
+            title: "В мене є питання"
+        },
+        {
+            id: 4,
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ6fCRhm1-g2ggWVzkn0xI-s8fAz850teipg&usqp=CAU",
+            title: "Як користуватися?"
+        },
+        {
+            id: 5,
+            image: "https://st5.depositphotos.com/62628780/65482/i/600/depositphotos_654825172-stock-photo-isolated-woman-call-center-and.jpg",
+            title: "В мене є питання"
+        },
+        {
+            id: 6,
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ6fCRhm1-g2ggWVzkn0xI-s8fAz850teipg&usqp=CAU",
+            title: "Як користуватися?"
+        },
+        {
+            id: 7,
+            image: "https://st5.depositphotos.com/62628780/65482/i/600/depositphotos_654825172-stock-photo-isolated-woman-call-center-and.jpg",
+            title: "В мене є питання"
+        },
     ]
 
     return (
@@ -44,7 +107,7 @@ export const Main = () => {
                             modules={[Autoplay]}
                             spaceBetween={0}
                             slidesPerView={1}
-                            // autoplay={{ delay: 3000 }}
+                            autoplay={{ delay: 3000 }}
                             centeredSlides={true}
                             speed={1000}
                             loop={true}
@@ -99,7 +162,64 @@ export const Main = () => {
                             <RedLinkButton href='#'>Купити</RedLinkButton>
                         </div>
                     </div>
-
+                </div>
+                <div className={s.items__main}>
+                    <Title>Популярні категорії</Title>
+                    <CatalogCard array={filteredCategories} />
+                </div>
+                <div className={`${s.main__items} ${s.items__main}`}>
+                    <Title>Онлайн-консультант</Title>
+                    <ul className={s.items__main__list}>
+                        {
+                            cards.map((card, index) => {
+                                return (
+                                    <li className={s.items__main__item} key={index}>
+                                        <Link to={ROUTES.home} className={s.items__main__link}>
+                                            <div className={s.items__main__link__img}>
+                                                <img src={card.image} />
+                                            </div>
+                                            <p className={s.items__main__link__text}>
+                                                {card.title}
+                                            </p>
+                                        </Link>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                </div>
+                <div className={s.main__cards}>
+                    <Title>Хіти продажів</Title>
+                    <ProductCard array={filteredProducts} />
+                    <LinkButton className={s.show__more__button} to={ROUTES.catalog}>Переглянути все</LinkButton>
+                </div>
+                <div className={`${s.main__help} ${s['help-main']}`}>
+                    <Title>Допомога</Title>
+                    <ul className={s['help-main__list']}>
+                        <li className={s['help-main__item']}>
+                            <Link className={s['help-main__link']} to={ROUTES.home}>Питання та відповіді</Link>
+                        </li>
+                        <li className={s['help-main__item']}>
+                            <Link className={s['help-main__link']} to={ROUTES.home}>Поради</Link>
+                        </li>
+                        <li className={s['help-main__item']}>
+                            <Link className={s['help-main__link']} to={ROUTES.home}>Відеоінструкція</Link>
+                        </li>
+                    </ul>
+                </div>
+                <div className={`${s.main__info} ${s['info-main']}`}>
+                    <div className={s['info-main__box']}>
+                        <h4 className={s['info-main__title']}>Купити кофемашину в Україні</h4>
+                        <div className={s['info-main__info']}>
+                            <p>Ми - лідери продажів на ринку. Вже багато років компанія залишається на лідерських позиціях, завдяки новим технологіям, широкому асортименту продукції та постійно вводячи щось нове у своє виробництво, щоб покупець мав із чого вибрати та задовольнити свої потреби. Продукція представлена ​​на всіх континентах світу.</p>
+                            <ul className={s['info-main__list']}>
+                                <li className={s['info-main__item']}>якість</li>
+                                <li className={s['info-main__item']}>доступність</li>
+                                <li className={s['info-main__item']}>надійність</li>
+                            </ul>
+                            <p>Продукція виготовлена ​​лише з якісних матеріалів.</p>
+                        </div>
+                    </div>
                 </div>
             </Container>
         </div>

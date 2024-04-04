@@ -3,6 +3,7 @@ export const ROUTES = {
     catalog: "/catalog",
     product: "/product",
     checkout: "/checkout",
+    userEmail: "/email",
     productInfo: {
         characteristics: "/characteristics",
         comments: "/comments",

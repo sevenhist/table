@@ -1,6 +1,5 @@
 @import "scss/constans";
 
-
 .pagination {
     display: flex;
     align-items: center;
@@ -23,10 +22,18 @@
         &:hover {
             background-color: #d9d9d9;
         } 
+        [data-theme="dark"] & {
+            background-color: $blackTextColor;
+            color: $whiteColor;
+        }
     }
     &__active_button {
         background-color: $accent;
         color: $whiteColor;
+        [data-theme="dark"] & {
+            background-color: $accent;
+            color: $whiteColor;
+        }
         &:hover {
             background-color: $accent;
         } 
@@ -43,6 +50,10 @@
         height: toRem(40);
         padding: toRem(5);
         width: toRem(40);
+        [data-theme="dark"] & {
+            background-color: $blackTextColor;
+            color: $whiteColor;
+        }
     }
     &__next__button {
         display: flex;
@@ -56,5 +67,9 @@
         height: toRem(40);
         padding: toRem(5);
         width: toRem(40);
+        [data-theme="dark"] & {
+            background-color: $blackTextColor;
+            color: $whiteColor;
+        }
     }
 }
